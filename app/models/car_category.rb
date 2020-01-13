@@ -1,3 +1,6 @@
 class CarCategory < ApplicationRecord
-  validates :name, :daily_rate, :car_insurance, :third_party_insurance, presence: { message: 'Você deve informar todos os dados da categoria'}
+  validates :name, presence: { message: 'Nome não pode ficar em branco'}
+  validates :daily_rate, presence: { message: 'Taxa Diária não pode ficar em branco'}
+  validates :car_insurance, presence: { message: 'Seguro do Carro não pode ficar em branco'}
+  validates :third_party_insurance, presence: { message: 'Seguro contra Terceiros não pode ficar em branco'}
 end
