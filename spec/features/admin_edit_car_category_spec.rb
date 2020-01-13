@@ -22,12 +22,12 @@ feature 'Admin edits subsidiary' do
   end
 
   scenario 'and must fill in all fields' do
-    CarCategory.create!(name: 'Entrada', daily_rate: 19.5,
+    CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)
 
     visit root_path
     click_on 'Categorias'
-    click_on 'Entrada'
+    click_on 'A'
     click_on 'Editar'
     fill_in 'Nome', with: ''
     fill_in 'Taxa Diária', with: ''
@@ -36,9 +36,9 @@ feature 'Admin edits subsidiary' do
     click_on 'Enviar'
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Taxa Diária não pode ficar em branco')
     expect(page).to have_content('Seguro do Carro não pode ficar em branco')
-    expect(page).to have_content('Seguro contra Terceiros não pode ficar em branco')  end
+    expect(page).to have_content('Seguro contra Terceiros não pode ficar em branco')  
+  end
 end
