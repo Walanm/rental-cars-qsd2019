@@ -10,6 +10,15 @@
   </head>
 
   <body>
+    <nav>
+      <% if user_signed_in? %>
+        <%= link_to 'Sair', root_path %>
+      <% else %>
+        <%= link_to 'Entrar', new_user_session_path %>
+      <% end %>
+    </nav>
+    <%= notice %>
+    <%= alert %>
     <%= yield %>
   </body>
 </html>
