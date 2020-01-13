@@ -35,4 +35,11 @@ feature 'Admin view car models' do
 
     expect(current_path).to eq root_path
   end
+
+  scenario 'and car models dont exist' do
+    visit root_path
+    click_on 'Modelos de Carro'
+
+    expect(page).to have_content('Nenhum modelo de carro cadastrado')
+  end
 end

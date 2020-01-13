@@ -1,5 +1,20 @@
 <%= link_to 'Registrar novo modelo', new_car_model_path %>
 
 <% @car_models.each do |car_model| %>
+  <p>Nome</p>
   <%= link_to car_model.name, car_model %>
+  <p>Ano</p>
+  <p><%= car_model.year %></p>
+  <p>Motorização</p>
+  <p><%= car_model.motorization %></p>
+  <p>Tipo de combustível</p>
+  <p><%= car_model.fuel_type %></p>
+  <p>Categoria</p>
+  <p><%= car_model.car_category.name %></p>
+  <p>Fabricante</p>
+  <p><%= car_model.manufacturer.name %></p>
+<% end %>
+
+<% if @car_models.empty? %>
+  <p>Nenhum modelo de carro cadastrado</p>
 <% end %>
