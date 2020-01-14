@@ -3,10 +3,12 @@ require 'rails_helper'
 feature 'Visitor view manufacturers' do
   scenario 'successfully' do
     # Arrange
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
     Manufacturer.create!(name: 'Fiat')
     Manufacturer.create!(name: 'Volkswagen')
 
     # Act
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Fabricantes'
     click_on 'Fiat'
@@ -17,14 +19,36 @@ feature 'Visitor view manufacturers' do
   end
 
   scenario 'and return to home page' do
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
     Manufacturer.create!(name: 'Fiat')
     Manufacturer.create!(name: 'Volkswagen')
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Fabricantes'
     click_on 'Fiat'
     click_on 'Voltar'
 
     expect(current_path).to eq root_path
+  end
+
+  scenario 'and must be authenticated via routes' do
+    visit manufacturers_path
+
+    expect(current_path).to eq(new_user_session_path)
+  end
+
+  scenario 'and must be authenticated via button' do
+    visit root_path
+
+    expect(page).not_to have_link('Fabricantes')
+  end
+
+  scenario 'and must be authenticated to view details' do
+    manufacturer = Manufacturer.new(name: 'Fiat')
+    
+    visit manufacturer_path(manufacturer.name)
+
+    expect(current_path).to eq(new_user_session_path)
   end
 end
