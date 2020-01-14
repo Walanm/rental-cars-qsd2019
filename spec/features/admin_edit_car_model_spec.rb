@@ -29,7 +29,7 @@ feature 'Admin edit car model' do
     expect(page).to have_content('1.5')
     expect(page).to have_content(/B/)
     expect(page).to have_content('gasolina')
-    expect(page).to have_content('Modelo atualizado com sucesso')
+    expect(page).to have_content('Modelo de carro atualizado com sucesso')
   end
 
   scenario 'and must fill in all fields' do

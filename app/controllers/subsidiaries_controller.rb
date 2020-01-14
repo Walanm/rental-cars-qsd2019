@@ -1,10 +1,11 @@
 class SubsidiariesController < ApplicationController
+  before_action :set_subsidiary, only: [:show, :edit, :update, :destroy]
+
   def index
     @subsidiaries = Subsidiary.all
   end
 
   def show
-    @subsidiary = Subsidiary.find(params[:id])
   end
 
   def new
@@ -12,31 +13,25 @@ class SubsidiariesController < ApplicationController
   end
 
   def edit
-    @subsidiary = Subsidiary.find(params[:id])
   end
 
   def create
     @subsidiary = Subsidiary.new(subsidiary_params)
-    if @subsidiary.save
-      flash[:notice] = 'Filial criada com sucesso'
-      redirect_to @subsidiary
-    else
-      render :new
-    end
+
+    return render :new unless @subsidiary.save
+
+    flash[:notice] = 'Filial criada com sucesso'
+    redirect_to @subsidiary
   end
 
   def update
-    @subsidiary = Subsidiary.find(params[:id])
-    if @subsidiary.update(subsidiary_params)
-      flash[:notice] = 'Filial atualizada com sucesso'
-      redirect_to @subsidiary
-    else
-      render :edit
-    end
+    return render :edit unless @subsidiary.update(subsidiary_params)
+
+    flash[:notice] = 'Filial atualizada com sucesso'
+    redirect_to @subsidiary
   end
 
   def destroy
-    @subsidiary = Subsidiary.find(params[:id])
     @subsidiary.destroy
     redirect_to action: "index" 
   end
@@ -45,5 +40,9 @@ class SubsidiariesController < ApplicationController
 
   def subsidiary_params
     params.require(:subsidiary).permit(:name, :cnpj, :address)
+  end
+
+  def set_subsidiary
+    @subsidiary = Subsidiary.find(params[:id])
   end
 end

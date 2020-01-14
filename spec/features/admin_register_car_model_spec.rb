@@ -27,7 +27,7 @@ feature 'Admin register car model' do
     expect(page).to have_content('1.7')
     expect(page).to have_content(/B/)
     expect(page).to have_content('diesel')
-    expect(page).to have_content('Modelo criado com sucesso')
+    expect(page).to have_content('Modelo de carro registrado com sucesso')
   end
 
   scenario 'and must fill in all fields' do
