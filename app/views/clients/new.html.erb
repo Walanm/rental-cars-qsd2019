@@ -1,0 +1,11 @@
+<h1>Novo Cliente</h1>
+
+<%= form_for @client do |f| %>
+  <%= f.label :name, 'Nome' %>
+  <%= f.text_field :name %>
+  <%= f.label :email, 'Email' %>
+  <%= f.text_field :email %>
+  <%= f.label :document, 'CPF' %>
+  <%= f.text_field :document %>
+  <%= f.submit 'Enviar' %>
+<% end %>
