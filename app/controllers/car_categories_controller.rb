@@ -34,7 +34,7 @@ class CarCategoriesController < ApplicationController
 
   def destroy
     @car_category.destroy
-    redirect_to action: "index" 
+    redirect_to car_categories_path
   end
 
   private

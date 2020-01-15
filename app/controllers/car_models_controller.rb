@@ -1,4 +1,5 @@
 class CarModelsController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :show, :new, :create, :edit, :update]
   before_action :load_manufacturers, only: [:new, :edit]
   before_action :load_car_categories, only: [:new, :edit]
   before_action :set_car_model, only: [:show, :edit, :update]

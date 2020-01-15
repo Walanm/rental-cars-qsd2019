@@ -45,12 +45,4 @@ feature 'Admin view subsidiaries' do
 
     expect(page).not_to have_link('Filiais')
   end
-
-  scenario 'and must be authenticated to view details' do
-    subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    
-    visit subsidiary_path(subsidiary.name)
-
-    expect(current_path).to eq(new_user_session_path)
-  end
 end

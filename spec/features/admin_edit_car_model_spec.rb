@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Admin edit car model' do
   scenario 'successfully' do
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
     manufacturer = Manufacturer.create!(name: 'Fiat')
     Manufacturer.create!(name: 'Volkswagen')
     car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
@@ -10,6 +11,7 @@ feature 'Admin edit car model' do
                         car_insurance: 710.35, third_party_insurance: 150.1)
     CarModel.create!(name: 'Uno', year: '2017', manufacturer: manufacturer, motorization: '1.7', car_category: car_category, fuel_type: 'diesel')
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Modelos de Carro'
     click_on 'Uno'
@@ -33,11 +35,13 @@ feature 'Admin edit car model' do
   end
 
   scenario 'and must fill in all fields' do
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)
     CarModel.create!(name: 'Uno', year: '2017', manufacturer: manufacturer, motorization: '1.7', car_category: car_category, fuel_type: 'diesel')
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Modelos de Carro'
     click_on 'Uno'
@@ -52,9 +56,13 @@ feature 'Admin edit car model' do
     expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Ano não pode ficar em branco')
-    #expect(page).to have_content('Fabricante não pode ficar em branco')
     expect(page).to have_content('Motorização não pode ficar em branco')
-    #expect(page).to have_content('Categoria de Carro não pode ficar em branco')
     expect(page).to have_content('Tipo de Combustível não pode ficar em branco')
+  end
+
+  scenario 'and must be authenticated via routes' do
+    visit edit_car_model_path('dont care')
+
+    expect(current_path).to eq(new_user_session_path)
   end
 end

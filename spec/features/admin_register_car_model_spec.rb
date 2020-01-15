@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'Admin register car model' do
   scenario 'successfully' do
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
     Manufacturer.create!(name: 'Fiat')
     Manufacturer.create!(name: 'Volkswagen')
     CarCategory.create!(name: 'A', daily_rate: 19.5,
@@ -9,6 +10,7 @@ feature 'Admin register car model' do
     CarCategory.create!(name: 'B', daily_rate: 21.7,
                         car_insurance: 710.35, third_party_insurance: 150.1)
 
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Modelos de Carro'
     click_on 'Registrar novo modelo'
@@ -31,6 +33,9 @@ feature 'Admin register car model' do
   end
 
   scenario 'and must fill in all fields' do
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+
+    login_as(user, scope: :user)
     visit root_path
     click_on 'Modelos de Carro'
     click_on 'Registrar novo modelo'
@@ -43,5 +48,11 @@ feature 'Admin register car model' do
     expect(page).to have_content('Motorização não pode ficar em branco')
     expect(page).to have_content('Categoria não pode ficar em branco')
     expect(page).to have_content('Tipo de Combustível não pode ficar em branco')
+  end
+
+  scenario 'and must be authenticated via routes' do
+    visit new_car_model_path
+
+    expect(current_path).to eq(new_user_session_path)
   end
 end
