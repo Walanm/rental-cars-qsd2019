@@ -1,0 +1,5 @@
+<%= link_to 'Registrar locação', new_rental_path %>
+
+<% @rentals.each do |rental| %>
+  <%= link_to rental.code, rental %>
+<% end %>

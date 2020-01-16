@@ -1,6 +1,7 @@
 class CarModel < ApplicationRecord
   belongs_to :manufacturer
   belongs_to :car_category
+  
   validates :name, presence: { message: 'Nome não pode ficar em branco'}
   validates :year, presence: { message: 'Ano não pode ficar em branco'}
   validates :manufacturer, presence: { message: 'Fabricante não pode ficar em branco'}

@@ -1,4 +1,6 @@
 class ClientsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create]
+  
   def index
     @clients = Client.all
   end
@@ -12,9 +14,17 @@ class ClientsController < ApplicationController
   end
 
   def create
-    @client = Client.new(params.require(:client).permit(:name, :email, :document))
-    @client.save
-    flash[:notice] = 'Cliente registrado com sucesso'
+    @client = Client.new(client_params)
+    
+    return render :new unless @client.save
+    
+    flash[:notice] =  'Cliente registrado com sucesso'
     redirect_to @client
+  end
+
+  private
+
+  def client_params
+    params.require(:client).permit(:name, :email, :document)
   end
 end
