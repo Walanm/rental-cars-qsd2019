@@ -27,4 +27,10 @@ feature 'User register rental' do
     expect(page).to have_content(user.email)
     expect(Rental.last.code).to match(/[a-zA-Z0-9]+/)
   end
+
+  scenario 'and must be authenticated via routes' do
+    visit new_rental_path
+
+    expect(current_path).to eq(new_user_session_path)
+  end
 end
