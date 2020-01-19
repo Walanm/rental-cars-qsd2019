@@ -23,7 +23,7 @@ feature 'User register rental' do
     expect(page).to have_content(client.name)
     expect(page).to have_content(client.email)
     expect(page).to have_content(client.document)
-    expect(page).to have_content(/B/)
+    expect(page).to have_content(/A/)
     expect(page).to have_content(user.email)
     expect(Rental.last.code).to match(/[a-zA-Z0-9]+/)
   end
