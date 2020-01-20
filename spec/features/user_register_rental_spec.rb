@@ -28,6 +28,46 @@ feature 'User register rental' do
     expect(Rental.last.code).to match(/[a-zA-Z0-9]+/)
   end
 
+  scenario 'and start date must be greater than today' do
+    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
+    CarCategory.create!(name: 'A', daily_rate: 19.5,
+                        car_insurance: 700.95, third_party_insurance: 200.1)
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Locações'
+    click_on 'Registrar locação'
+    fill_in 'Data de início', with: '10/01/2000'
+    fill_in 'Data de término', with: '15/01/2040'
+    select "#{client.document} - #{client.name}", from: 'Cliente'
+    select 'A', from: 'Categoria de Carro'
+    click_on 'Enviar'
+
+    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Data de início deve ser após data de hoje')
+  end
+
+  scenario 'and end date must be greater than start date' do
+    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
+    CarCategory.create!(name: 'A', daily_rate: 19.5,
+                        car_insurance: 700.95, third_party_insurance: 200.1)
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Locações'
+    click_on 'Registrar locação'
+    fill_in 'Data de início', with: '10/01/2040'
+    fill_in 'Data de término', with: '15/01/2020'
+    select "#{client.document} - #{client.name}", from: 'Cliente'
+    select 'A', from: 'Categoria de Carro'
+    click_on 'Enviar'
+
+    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Data de término deve ser após data de início')
+  end
+
   scenario 'and must be authenticated via routes' do
     visit new_rental_path
 

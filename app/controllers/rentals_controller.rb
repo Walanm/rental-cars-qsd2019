@@ -18,18 +18,18 @@ class RentalsController < ApplicationController
     @rental = Rental.new(rental_params)
     @rental.code = SecureRandom.hex(6)
     @rental.user = current_user
-    @rental.save
 
-    flash[:notice] = 'Locação registrada com sucesso'
+    return redirect_to @rental,
+      notice: 'Locação registrada com sucesso' if @rental.save
 
-    redirect_to @rental
+    @clients = Client.all
+    @car_categories = CarCategory.all
+    render :new
   end
 
   def search
     @q = params[:q]
     @rentals = Rental.where('UPPER(code) LIKE UPPER(?)', "%#{@q}%")
-
-
   end
 
   private
