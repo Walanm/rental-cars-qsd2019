@@ -1,0 +1,21 @@
+<%= link_to 'Registrar locação', new_rental_path %>
+
+<%= form_tag(search_rentals_path, method: "get") do %>
+  <%= label_tag(:q, "Pesquisa:") %>
+  <%= text_field_tag(:q) %>
+  <%= submit_tag("Buscar") %>
+<% end %>
+
+<% if @rentals.any? %>
+  <%= "#{@rentals.length} resultado(s) encontrado(s) para o termo #{@q}" %> 
+
+  <% @rentals.each do |rental| %>
+    <%= link_to rental.code, rental %>
+    <%= rental.client.name %>
+    <%= rental.start_date.strftime("%d/%m/%Y") %>
+    <%= rental.end_date.strftime("%d/%m/%Y") %>
+    <%= rental.user.email %>
+  <% end %>
+<% else %>
+  <%= "Nenhum resultado encontrado para o termo #{@q}" %>
+<% end %>

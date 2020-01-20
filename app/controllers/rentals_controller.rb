@@ -25,9 +25,16 @@ class RentalsController < ApplicationController
     redirect_to @rental
   end
 
+  def search
+    @q = params[:q]
+    @rentals = Rental.where('UPPER(code) LIKE UPPER(?)', "%#{@q}%")
+
+
+  end
+
   private
 
   def rental_params
-    params.require(:rental).permit(:code, :start_date, :end_date, :client_id, :car_category_id)
+    params.require(:rental).permit(:code, :start_date, :end_date, :client_id, :car_category_id, :user_id)
   end
 end
