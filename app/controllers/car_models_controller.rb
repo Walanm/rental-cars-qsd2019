@@ -19,7 +19,7 @@ class CarModelsController < ApplicationController
   end
   
   def create
-    @car_model = CarModel.new(car_models_params)
+    @car_model = CarModel.new(car_model_params)
     return redirect_to @car_model,
       notice: 'Modelo de carro registrado com sucesso' if @car_model.save
 
@@ -30,7 +30,7 @@ class CarModelsController < ApplicationController
 
   def update
     return redirect_to @car_model,
-      notice: 'Modelo de carro atualizado com sucesso' if @car_model.update(car_models_params)
+      notice: 'Modelo de carro atualizado com sucesso' if @car_model.update(car_model_params)
 
     load_manufacturers
     load_car_categories
@@ -39,7 +39,7 @@ class CarModelsController < ApplicationController
 
   private
 
-  def car_models_params
+  def car_model_params
     params.require(:car_model).permit(:name, :year, :manufacturer_id, :motorization, :car_category_id, :fuel_type)
   end
 

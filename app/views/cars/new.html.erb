@@ -1,0 +1,23 @@
+<h1>Novo Carro</h1>
+
+<% if @car.errors.any? %>
+  <p>Você deve corrigir os seguintes erros para continuar:</p>
+
+  <% @car.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+<% end %>
+
+<%= form_for @car do |f| %>
+  <%= f.label :license_plate, 'Placa' %>
+  <%= f.text_field :license_plate %>
+  <%= f.label :color, 'Cor' %>
+  <%= f.text_field :color %>
+  <%= f.label :car_model_id, 'Modelo de Carro' %>
+  <%= f.collection_select :car_model_id, @car_models, :id, :name %>
+  <%= f.label :mileage, 'Quilometragem' %>
+  <%= f.text_field :mileage %>
+  <%= f.label :subsidiary_id, 'Filial' %>
+  <%= f.collection_select :subsidiary_id, @subsidiaries, :id, :name %>
+  <%= f.submit 'Enviar' %>
+<% end %>
