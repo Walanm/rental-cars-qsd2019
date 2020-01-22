@@ -6,7 +6,7 @@ class Rental < ApplicationRecord
 
   validate :start_date_cannot_be_in_the_past, :end_date_greater_than_start_date
 
-  enum status: { scheduled: 0, in_progress: 1 }
+  enum status: { scheduled: 0, in_progress: 4 }
 
   private
 

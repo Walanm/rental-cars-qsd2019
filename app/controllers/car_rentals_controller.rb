@@ -11,6 +11,7 @@ class CarRentalsController < ApplicationController
     @car = Car.find(params[:car_id])
     @car_rental = CarRental.new(car: @car, rental: @rental)
     @rental.in_progress!
+    @car.unavailable!
     @car_rental.daily_rate = @rental.car_category.daily_rate
     @car_rental.car_insurance = @rental.car_category.car_insurance
     @car_rental.third_party_insurance = @rental.car_category.third_party_insurance

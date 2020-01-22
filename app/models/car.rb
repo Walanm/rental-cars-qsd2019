@@ -10,7 +10,7 @@ class Car < ApplicationRecord
     numericality: { greater_than_or_equal_to: 0, message: 'Quilometragem deve ser maior ou igual a zero' }
   validates :subsidiary, presence: { message: 'Filial não pode ficar em branco'}
 
-  enum status: { available: 0, unavailable: 1 }
+  enum status: { available: 0, unavailable: 4 }
 
   def full_description
     return 'Carro não cadastrado corretamente' if car_model.nil?
