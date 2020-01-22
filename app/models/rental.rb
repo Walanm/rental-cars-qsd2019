@@ -2,13 +2,16 @@ class Rental < ApplicationRecord
   belongs_to :client
   belongs_to :car_category
   belongs_to :user
+  has_one :car_rental
 
-  validate :start_date_greater_than_today, :end_date_greater_than_start_date
+  validate :start_date_cannot_be_in_the_past, :end_date_greater_than_start_date
+
+  enum status: { scheduled: 0, in_progress: 1 }
 
   private
 
-  def start_date_greater_than_today
-    unless start_date > Date.today
+  def start_date_cannot_be_in_the_past
+    unless start_date >= Date.today
       self.errors[:name] << 'Data de início deve ser após data de hoje'
     end
   end

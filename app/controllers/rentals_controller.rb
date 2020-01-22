@@ -6,6 +6,7 @@ class RentalsController < ApplicationController
 
   def show
     @rental = Rental.find(params[:id])
+    @car_rental = CarRental.find_by(rental: @rental.id) if @rental.in_progress?
   end
 
   def new
@@ -30,6 +31,8 @@ class RentalsController < ApplicationController
   def search
     @q = params[:q]
     @rentals = Rental.where('UPPER(code) LIKE UPPER(?)', "%#{@q}%")
+
+    redirect_to @rentals[0] if @rentals.size == 1
   end
 
   private

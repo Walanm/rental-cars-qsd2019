@@ -1,0 +1,11 @@
+<h1>Efetivar Locação - <%= @rental.code %></h1>
+<section>
+  <h2> Carros disponíveis </h2>
+
+  <% @cars.each do |car| %>
+    <div id="car-<%= car.id %>" >
+      <%= car.full_description %>
+      <%= link_to 'Iniciar', rental_car_rentals_path(car_id: car.id), method: :post %>
+    </div> 
+  <% end %>
+</section>

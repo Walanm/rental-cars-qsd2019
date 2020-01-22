@@ -7,4 +7,13 @@
 <%= @rental.start_date.strftime("%d/%m/%Y") %>
 <%= @rental.end_date.strftime("%d/%m/%Y") %>
 
+<% if @rental.in_progress? %>
+  <p>Status: Em andamento</p>
+  <%= "Carro: #{@car_rental.car.full_description}" %>
+  <%= "Diária: R$#{format("%.2f", @car_rental.daily_price)}" %>
+<% else %>
+  <p>Status: Agendado</p>
+  <%= link_to 'Efetivar Locação', new_rental_car_rental_path(@rental)  %>
+<% end %>
+
 <%= link_to 'Voltar', rentals_path %>
