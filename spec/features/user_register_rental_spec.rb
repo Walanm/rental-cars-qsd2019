@@ -45,7 +45,7 @@ feature 'User register rental' do
     click_on 'Enviar'
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
-    expect(page).to have_content('Data de início deve ser após data de hoje')
+    expect(page).to have_content('Data de início não pode ser no passado')
   end
 
   scenario 'and end date must be greater than start date' do
