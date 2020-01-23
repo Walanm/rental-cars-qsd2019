@@ -21,4 +21,8 @@ class Rental < ApplicationRecord
       self.errors[:name] << 'Data de término deve ser após data de início'
     end
   end
+
+  def have_available_cars
+    
+  end
 end

@@ -9,13 +9,9 @@ class CarRentalsController < ApplicationController
   def create
     @rental = Rental.find(params[:rental_id])
     @car = Car.find(params[:car_id])
-    @car_rental = CarRental.new(car: @car, rental: @rental)
+    @car_rental = @rental.create_car_rental(car: @car, start_mileage: @car.mileage)
     @rental.in_progress!
     @car.unavailable!
-    @car_rental.daily_rate = @rental.car_category.daily_rate
-    @car_rental.car_insurance = @rental.car_category.car_insurance
-    @car_rental.third_party_insurance = @rental.car_category.third_party_insurance
-    @car_rental.save
     redirect_to @rental, notice: 'Locação iniciada com sucesso'
   end
 

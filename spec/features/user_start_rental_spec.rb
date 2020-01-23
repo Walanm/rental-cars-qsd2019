@@ -42,8 +42,6 @@ feature 'User start rental' do
                                     address: 'Rua da Consolação 101')
     car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                        car_insurance: 90.5, third_party_insurance: 100.1)
-    other_car_category = CarCategory.create!(name: 'B', daily_rate: 21.7,
-                                             car_insurance: 710.35, third_party_insurance: 150.1)
     client = Client.create!(name: 'Fulano', email: 'fulano@test.com',
                             document: '000.000.000-00')
     Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 1.day.from_now,
@@ -51,13 +49,8 @@ feature 'User start rental' do
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-    other_car_model = CarModel.create!(name: 'Uno', year: '2017', manufacturer: manufacturer, 
-                                       motorization: '1.7', car_category: other_car_category,
-                                       fuel_type: 'diesel')
     car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
                       subsidiary: subsidiary)
-    other_car = Car.create!(license_plate: 'ABC1122', color: 'Vermelho', car_model: other_car_model,
-                           mileage: 50, subsidiary: subsidiary)
 
 
     login_as(user, scope: :user)
