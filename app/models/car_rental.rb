@@ -14,8 +14,10 @@ class CarRental < ApplicationRecord
   end
 
   def register_current_costs
-    self.daily_rate = rental.car_category.daily_rate
-    self.car_insurance = rental.car_category.car_insurance
-    self.third_party_insurance = rental.car_category.third_party_insurance
+    if rental.present? && rental.car_category.present?
+      self.daily_rate = rental.car_category.daily_rate
+      self.car_insurance = rental.car_category.car_insurance
+      self.third_party_insurance = rental.car_category.third_party_insurance
+    end
   end
 end
