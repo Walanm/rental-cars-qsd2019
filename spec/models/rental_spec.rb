@@ -47,4 +47,142 @@ describe Rental do
       expect(rental.errors[:start_date]).to include('Data de Início não pode ficar em branco')
     end
   end
+
+  describe '#have_available_cars' do
+    it 'has a rental end date within new rental period' do
+      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+                                      address: 'Rua da Consolação 101')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
+                                        car_insurance: 90.5, third_party_insurance: 100.1)
+      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      manufacturer = Manufacturer.new(name: 'Fiat')
+      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
+                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
+      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
+                        subsidiary: subsidiary)
+      Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 4.day.from_now,
+                     client: client, car_category: car_category, user: user)
+      rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
+                          client: client, car_category: car_category, user: user)
+      
+      rental.valid?
+
+      expect(rental.errors[:base]).to include('Não há carros disponíveis dessa categoria nesse período')
+    end
+
+    it 'has a rental start date within new rental period' do
+      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+                                      address: 'Rua da Consolação 101')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5, car_insurance: 90.5, third_party_insurance: 100.1)
+      client = Client.new(name: 'Fulano', email: 'fulano@test.com',
+                              document: '000.000.000-00')
+      manufacturer = Manufacturer.new(name: 'Fiat')
+      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
+                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
+      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
+                        subsidiary: subsidiary)
+      Rental.create!(code: 'XFB0000', start_date: 4.day.from_now, end_date: 8.day.from_now,
+                     client: client, car_category: car_category, user: user)
+      rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
+                          client: client, car_category: car_category, user: user)
+      
+      rental.valid?
+
+      expect(rental.errors[:base]).to include('Não há carros disponíveis dessa categoria nesse período')
+    end
+
+    it 'has a rental period entirely within new rental period' do
+      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+                                      address: 'Rua da Consolação 101')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
+                                        car_insurance: 90.5, third_party_insurance: 100.1)
+      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      manufacturer = Manufacturer.new(name: 'Fiat')
+      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
+                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
+      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
+                        subsidiary: subsidiary)
+      Rental.create!(code: 'XFB0000', start_date: 4.day.from_now, end_date: 5.day.from_now,
+                     client: client, car_category: car_category, user: user)
+      rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
+                          client: client, car_category: car_category, user: user)
+      
+      rental.valid?
+
+      expect(rental.errors[:base]).to include('Não há carros disponíveis dessa categoria nesse período')
+    end
+
+    it 'has a rental period that covers entirely new rental period' do
+      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82',
+                                  address: 'Rua da Consolação 101')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
+                                        car_insurance: 90.5, third_party_insurance: 100.1)
+      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      manufacturer = Manufacturer.new(name: 'Fiat')
+      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
+                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
+      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
+                        subsidiary: subsidiary)
+      Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 8.day.from_now,
+                     client: client, car_category: car_category, user: user)
+      rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
+                          client: client, car_category: car_category, user: user)
+      
+      rental.valid?
+
+      expect(rental.errors[:base]).to include('Não há carros disponíveis dessa categoria nesse período')
+    end
+
+    it 'has car available' do
+      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+                                      address: 'Rua da Consolação 101')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
+                                        car_insurance: 90.5, third_party_insurance: 100.1)
+      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      manufacturer = Manufacturer.new(name: 'Fiat')
+      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
+                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
+      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
+                        subsidiary: subsidiary)
+      rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
+                          client: client, car_category: car_category, user: user)
+      
+      rental.valid?
+
+      expect(rental.errors[:base]).to eq([])
+    end
+
+    it 'only has available car in other category' do
+      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+                                      address: 'Rua da Consolação 101')
+      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
+                                        car_insurance: 90.5, third_party_insurance: 100.1)
+      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      manufacturer = Manufacturer.new(name: 'Fiat')
+      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
+                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
+      other_car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
+                                               car_insurance: 90.5, third_party_insurance: 100.1)
+      other_car_model = CarModel.create!(name: 'FOX', year: '2019', manufacturer: manufacturer,
+                                  motorization: '1.6', car_category: other_car_category, fuel_type: 'gasoline')
+      other_car = Car.create!(license_plate: 'AVN1010', color: 'Azul', car_model: other_car_model, mileage: 127, 
+                                  subsidiary: subsidiary)
+      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
+                        subsidiary: subsidiary)
+      Rental.create!(code: 'XFB0000', start_date: 4.day.from_now, end_date: 5.day.from_now,
+                    client: client, car_category: car_category, user: user)
+      rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
+                          client: client, car_category: car_category, user: user)
+      
+      rental.valid?
+
+      expect(rental.errors[:base]).to include('Não há carros disponíveis dessa categoria nesse período')
+    end
+  end
 end

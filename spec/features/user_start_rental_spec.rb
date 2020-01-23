@@ -11,8 +11,6 @@ feature 'User start rental' do
                                              car_insurance: 710.35, third_party_insurance: 150.1)
     client = Client.create!(name: 'Fulano', email: 'fulano@test.com',
                             document: '000.000.000-00')
-    Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 1.day.from_now,
-                   client: client, car_category: car_category, user: user)
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
@@ -23,6 +21,8 @@ feature 'User start rental' do
                       subsidiary: subsidiary)
     other_car = Car.create!(license_plate: 'ABC1122', color: 'Vermelho', car_model: other_car_model,
                            mileage: 50, subsidiary: subsidiary)
+    Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 1.day.from_now,
+                   client: client, car_category: car_category, user: user)
 
     login_as user, scope: :user
     visit root_path
@@ -44,13 +44,15 @@ feature 'User start rental' do
                                        car_insurance: 90.5, third_party_insurance: 100.1)
     client = Client.create!(name: 'Fulano', email: 'fulano@test.com',
                             document: '000.000.000-00')
-    Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 1.day.from_now,
-                   client: client, car_category: car_category, user: user)
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
     car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
                       subsidiary: subsidiary)
+    #Car.create!(license_plate: 'AAA1111', color: 'Verde', car_model: car_model, mileage: 117, 
+    #                  subsidiary: subsidiary)
+    Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 1.day.from_now,
+                   client: client, car_category: car_category, user: user)
 
 
     login_as(user, scope: :user)
