@@ -49,8 +49,6 @@ feature 'User start rental' do
                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
     car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
                       subsidiary: subsidiary)
-    #Car.create!(license_plate: 'AAA1111', color: 'Verde', car_model: car_model, mileage: 117, 
-    #                  subsidiary: subsidiary)
     Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 1.day.from_now,
                    client: client, car_category: car_category, user: user)
 
