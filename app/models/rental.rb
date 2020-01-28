@@ -32,11 +32,12 @@ class Rental < ApplicationRecord
                        .where('start_date BETWEEN :start AND :end 
                                OR end_date BETWEEN :start AND :end', 
                                start: start_date, end: end_date)
-      @long_period_rentals = Rental.where(car_category: car_category)
-                                  .where('start_date < ? AND end_date > ?',
-                                  start_date, end_date)
+      @long_period_rentals = Rental.where.not(id: id)
+                                   .where(car_category: car_category)
+                                   .where('start_date < ? AND end_date > ?',
+                                          start_date, end_date)
       @cars = Car.where(car_model: car_category.car_models)
-      
+
       unless @cars.count > (@rentals.count + @long_period_rentals.count)
         self.errors[:base] << 'Não há carros disponíveis dessa categoria nesse período'
       end
