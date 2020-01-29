@@ -15,7 +15,7 @@ class Rental < ApplicationRecord
   private
 
   def start_date_cannot_be_in_the_past
-    if start_date.present? && start_date < Date.today
+    if start_date.present? && start_date < Date.current
       self.errors[:start_date] << 'Data de início não pode ser no passado'
     end
   end

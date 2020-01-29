@@ -6,6 +6,21 @@
   <%= submit_tag("Buscar") %>
 <% end %>
 
-<% @rentals.each do |rental| %>
-  <%= link_to rental.code, rental %>
-<% end %>
+<table style="width:100%">
+  <tr>
+    <th>Código</th>
+    <th>Cliente</th>
+    <th>CPF</th>
+    <th>Data de Início</th>
+    <th>Data de Término</th>
+  </tr>
+  <% @rentals.each do |rental| %>
+    <tr>
+      <td><%= link_to rental.code, rental %></td>
+      <td><%= rental.client.name %></td>
+      <td><%= rental.client.document %></td>
+      <td><%= rental.start_date.strftime("%d/%m/%Y") %></td>
+      <td><%= rental.end_date.strftime("%d/%m/%Y") %></td>
+    </tr>
+  <% end %>
+</table>
