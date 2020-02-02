@@ -50,9 +50,9 @@ describe Rental do
 
   describe '#have_available_cars' do
     it 'has a rental end date within new rental period' do
-      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
                                       address: 'Rua da Consolação 101')
+      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
       car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                         car_insurance: 90.5, third_party_insurance: 100.1)
       client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
@@ -72,9 +72,9 @@ describe Rental do
     end
 
     it 'has a rental start date within new rental period' do
-      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
                                       address: 'Rua da Consolação 101')
+      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
       car_category = CarCategory.create!(name: 'A', daily_rate: 19.5, car_insurance: 90.5, third_party_insurance: 100.1)
       client = Client.new(name: 'Fulano', email: 'fulano@test.com',
                               document: '000.000.000-00')
@@ -94,9 +94,9 @@ describe Rental do
     end
 
     it 'has a rental period entirely within new rental period' do
-      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
                                       address: 'Rua da Consolação 101')
+      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
       car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                         car_insurance: 90.5, third_party_insurance: 100.1)
       client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
@@ -116,9 +116,9 @@ describe Rental do
     end
 
     it 'has a rental period that covers entirely new rental period' do
-      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82',
-                                  address: 'Rua da Consolação 101')
+      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+                                      address: 'Rua da Consolação 101')
+      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
       car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                         car_insurance: 90.5, third_party_insurance: 100.1)
       client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
@@ -138,9 +138,9 @@ describe Rental do
     end
 
     it 'has car available' do
-      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
                                       address: 'Rua da Consolação 101')
+      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
       car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                         car_insurance: 90.5, third_party_insurance: 100.1)
       client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
@@ -158,9 +158,9 @@ describe Rental do
     end
 
     it 'only has available car in other category' do
-      user = User.new(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
+      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
                                       address: 'Rua da Consolação 101')
+      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
       car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                         car_insurance: 90.5, third_party_insurance: 100.1)
       client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')

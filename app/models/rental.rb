@@ -3,6 +3,7 @@ class Rental < ApplicationRecord
   belongs_to :car_category
   belongs_to :user
   has_one :car_rental
+  has_one :subsidiary, through: :user
 
   validates :start_date, presence: { message: 'Data de Início não pode ficar em branco'}
   validates :end_date, presence: { message: 'Data de Término não pode ficar em branco'}
@@ -28,15 +29,19 @@ class Rental < ApplicationRecord
 
   def have_available_cars
     if car_category.present?
-      @rentals = Rental.where.not(id: id).where(car_category: car_category)
+      @rentals = Rental.where.not(id: id)
+                       .where(car_category: car_category,
+                              subsidiary: user.subsidiary.id)
                        .where('start_date BETWEEN :start AND :end 
                                OR end_date BETWEEN :start AND :end', 
                                start: start_date, end: end_date)
       @long_period_rentals = Rental.where.not(id: id)
-                                   .where(car_category: car_category)
+                                   .where(car_category: car_category,
+                                          subsidiary: user.subsidiary.id)
                                    .where('start_date < ? AND end_date > ?',
                                           start_date, end_date)
-      @cars = Car.where(car_model: car_category.car_models)
+      @cars = Car.where(car_model: car_category.car_models,
+                        subsidiary: subsidiary.id)
 
       unless @cars.count > (@rentals.count + @long_period_rentals.count)
         self.errors[:base] << 'Não há carros disponíveis dessa categoria nesse período'
