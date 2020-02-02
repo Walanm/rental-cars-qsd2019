@@ -9,10 +9,17 @@ class CarRentalsController < ApplicationController
   def create
     @rental = Rental.find(params[:rental_id])
     @car = Car.find(params[:car_id])
-    @car_rental = @rental.create_car_rental(car: @car, start_mileage: @car.mileage)
-    @rental.in_progress!
-    @car.unavailable!
-    redirect_to @rental, notice: 'Locação iniciada com sucesso'
+    if @car_rental = @rental.create_car_rental(car: @car,
+                                               start_mileage: @car.mileage)
+      @rental.in_progress!
+      @car.unavailable!
+      redirect_to @rental, notice: 'Locação iniciada com sucesso'
+    else
+      @rental = Rental.find(params[:rental_id])
+      @cars = Car.where(car_model: @rental.car_category.car_models)
+                 .where(status: :available)
+      render :new
+    end
   end
 
 end

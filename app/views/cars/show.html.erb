@@ -1,7 +1,9 @@
-<%= @car.license_plate %>
-<%= @car.color %>
-<%= @car.car_model.name %>
-<%= "#{@car.mileage} km" %>
-<%= @car.subsidiary.name %>
+<h1>Detalhes do Carro</h1>
+
+<p>Placa do Carro: <%= @car.license_plate %></p>
+<p>Modelo: <%= @car.car_model.name %></p>
+<p>Cor: <%= @car.color %></p>
+<p>Quilometragem: <%= "#{@car.mileage} km" %></p>
+<p>Filial: <%= @car.subsidiary.name %></p>
 
 <%= link_to 'Voltar', root_path %>

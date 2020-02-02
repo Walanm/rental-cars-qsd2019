@@ -6,8 +6,10 @@ class CarRental < ApplicationRecord
 
   validates :daily_rate, presence: { message: 'Taxa Diária não pode ficar em branco' }
   validates :car_insurance, presence: { message: 'Seguro do Carro não pode ficar em branco' }
-  validates :third_party_insurance, presence: { message: 'Seguro contra Terceiros não pode ficar em branco' }
-  validates :start_mileage, presence: { message: 'Quilometragem Inicial não pode ficar em branco' }
+  validates :third_party_insurance, 
+    presence: { message: 'Seguro contra Terceiros não pode ficar em branco' }
+  validates :start_mileage,
+    presence: { message: 'Quilometragem Inicial não pode ficar em branco' }
 
   def daily_price
     daily_rate + car_insurance + third_party_insurance
