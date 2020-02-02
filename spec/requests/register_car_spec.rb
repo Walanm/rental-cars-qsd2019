@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Receive car details API' do
+describe 'Register car API' do
   context '#create' do
     it 'posts a json successfully' do
       subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
