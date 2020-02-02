@@ -2,11 +2,10 @@ require 'rails_helper'
 
 feature 'User register rental' do
   scenario 'successfully' do
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
     manufacturer = Manufacturer.new(name: 'Fiat')
-    subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                      address: 'Rua da Consolação 101')
     car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)
     car_model = CarModel.new(name: 'Mobi', year: '2019', manufacturer: manufacturer,
@@ -36,7 +35,8 @@ feature 'User register rental' do
   end
 
   scenario 'and start date must be greater than today' do
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
     CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)
@@ -56,7 +56,8 @@ feature 'User register rental' do
   end
 
   scenario 'and end date must be greater than start date' do
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
     CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)
@@ -76,7 +77,8 @@ feature 'User register rental' do
   end
 
   scenario 'and must have available cars in the period' do
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
     CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)

@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'Admin edits manufacturer' do
   scenario 'successfully' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     Manufacturer.create(name: 'Fiat')
 
     login_as(user, scope: :user)
@@ -17,7 +18,8 @@ feature 'Admin edits manufacturer' do
   end
 
   scenario 'and must fill in all fields' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     Manufacturer.create(name: 'Fiat')
 
     login_as(user, scope: :user)
@@ -34,7 +36,8 @@ feature 'Admin edits manufacturer' do
   end
 
   scenario 'name must be unique' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     Manufacturer.create(name: 'Fiat')
     Manufacturer.create!(name: 'Honda')
 

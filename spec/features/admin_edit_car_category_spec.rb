@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'Admin edits car category' do
   scenario 'successfully' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)
 
@@ -24,7 +25,8 @@ feature 'Admin edits car category' do
   end
 
   scenario 'and must fill in all fields' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     CarCategory.create!(name: 'A', daily_rate: 19.5,
                         car_insurance: 700.95, third_party_insurance: 200.1)
 

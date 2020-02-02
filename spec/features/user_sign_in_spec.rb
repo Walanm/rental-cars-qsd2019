@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'User sign in' do
   scenario 'successfully' do
-    User.create!(email: 'usuario@gmail.com', password: 'usuario123')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'usuario@gmail.com', password: 'usuario123', subsidiary: subsidiary)
 
     visit root_path
     click_on 'Entrar'
@@ -20,7 +21,8 @@ feature 'User sign in' do
   end
 
   scenario 'and sign out' do
-    User.create!(email: 'usuario@gmail.com', password: 'usuario123')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'usuario@gmail.com', password: 'usuario123', subsidiary: subsidiary)
 
     visit root_path
     click_on 'Entrar'

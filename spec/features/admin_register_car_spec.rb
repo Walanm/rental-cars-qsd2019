@@ -2,13 +2,13 @@ require 'rails_helper'
 
 feature 'Admin register car' do
   scenario 'successfully' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_category = CarCategory.create!(name: 'B', daily_rate: 21.7,
                         car_insurance: 710.35, third_party_insurance: 150.1)
     CarModel.create!(name: 'Uno', year: '2017', manufacturer: manufacturer,
                      motorization: '1.7', car_category: car_category, fuel_type: 'diesel')
-    Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
     
     login_as user, scope: :user
     visit root_path
@@ -30,7 +30,9 @@ feature 'Admin register car' do
   end
 
   scenario 'and must fill all fields' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
+    subsidiary.delete
     
     login_as user, scope: :user
     visit root_path
@@ -47,13 +49,13 @@ feature 'Admin register car' do
   end
 
   scenario 'and license plate must be unique' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_category = CarCategory.create!(name: 'B', daily_rate: 21.7,
                         car_insurance: 710.35, third_party_insurance: 150.1)
     car_model = CarModel.create!(name: 'Uno', year: '2017', manufacturer: manufacturer,
                                  motorization: '1.7', car_category: car_category, fuel_type: 'diesel')
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
     Car.create!(license_plate: 'NVN1010', color: 'Vermelho', car_model: car_model, 
                 mileage: 60, subsidiary: subsidiary)
     
@@ -73,13 +75,13 @@ feature 'Admin register car' do
   end
 
   scenario 'mileage must be equal or greater than zero' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_category = CarCategory.create!(name: 'B', daily_rate: 21.7,
                         car_insurance: 710.35, third_party_insurance: 150.1)
     CarModel.create!(name: 'Uno', year: '2017', manufacturer: manufacturer,
                      motorization: '1.7', car_category: car_category, fuel_type: 'diesel')
-    Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
     
     login_as user, scope: :user
     visit root_path

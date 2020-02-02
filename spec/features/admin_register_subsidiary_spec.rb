@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'Admin register subsidiary' do
   scenario 'successfully' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Parker', cnpj: '99.534.860/0001-72', address: 'Avenida Brasil 201')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -21,8 +22,8 @@ feature 'Admin register subsidiary' do
   end
 
   scenario 'name must be unique' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
-    Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -39,7 +40,8 @@ feature 'Admin register subsidiary' do
   end
 
   scenario 'cnpj must be valid' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path

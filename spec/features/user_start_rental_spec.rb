@@ -2,9 +2,8 @@ require 'rails_helper'
 
 feature 'User start rental' do
   scenario 'and view available cars' do
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                    address: 'Rua da Consolação 101')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                        car_insurance: 700.95, third_party_insurance: 200.1)
     other_car_category = CarCategory.create!(name: 'B', daily_rate: 21.7,
@@ -37,9 +36,8 @@ feature 'User start rental' do
   end
 
   scenario 'and start successfully' do
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd')
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                    address: 'Rua da Consolação 101')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
                                        car_insurance: 90.5, third_party_insurance: 100.1)
     client = Client.create!(name: 'Fulano', email: 'fulano@test.com',

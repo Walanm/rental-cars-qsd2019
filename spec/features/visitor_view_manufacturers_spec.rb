@@ -3,7 +3,8 @@ require 'rails_helper'
 feature 'Visitor view manufacturers' do
   scenario 'successfully' do
     # Arrange
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'usuario@gmail.com', password: 'usuario123', subsidiary: subsidiary)
     Manufacturer.create!(name: 'Fiat')
     Manufacturer.create!(name: 'Volkswagen')
 
@@ -19,7 +20,8 @@ feature 'Visitor view manufacturers' do
   end
 
   scenario 'and return to home page' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'usuario@gmail.com', password: 'usuario123', subsidiary: subsidiary)
     Manufacturer.create!(name: 'Fiat')
     Manufacturer.create!(name: 'Volkswagen')
 

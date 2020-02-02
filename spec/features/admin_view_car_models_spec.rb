@@ -2,7 +2,8 @@ require 'rails_helper'
 
 feature 'Admin view car models' do
   scenario 'successfully' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_category = CarCategory.create!(name: 'B', daily_rate: 21.7,
                         car_insurance: 710.35, third_party_insurance: 150.1)
@@ -24,7 +25,8 @@ feature 'Admin view car models' do
   end
 
   scenario 'and return to home page' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
     manufacturer = Manufacturer.create!(name: 'Fiat')
     car_category = CarCategory.create!(name: 'B', daily_rate: 21.7,
                         car_insurance: 710.35, third_party_insurance: 150.1)
@@ -41,7 +43,8 @@ feature 'Admin view car models' do
   end
 
   scenario 'and car models dont exist' do
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd')
+    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
