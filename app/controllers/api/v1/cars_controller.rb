@@ -19,4 +19,14 @@ class Api::V1::CarsController < Api::V1::ApiController
   rescue ActiveRecord::RecordInvalid
     render json: @car.errors, status: :unprocessable_entity
   end
+
+  def status
+    @car = Car.find(params[:id])
+    @car.update!(status: params[:status])
+    render json: @car.to_json(only: [:license_plate, :status]), status: :ok
+  rescue ArgumentError
+    render json: '', status: :unprocessable_entity
+  rescue ActiveRecord::RecordNotFound
+    render json: '', status: :not_found
+  end
 end
