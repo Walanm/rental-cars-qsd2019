@@ -5,8 +5,8 @@ feature 'Visitor view manufacturers' do
     # Arrange
     subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
     user = User.create!(email: 'usuario@gmail.com', password: 'usuario123', subsidiary: subsidiary)
-    Manufacturer.create!(name: 'Fiat')
-    Manufacturer.create!(name: 'Volkswagen')
+    create(:manufacturer, name: 'Fiat')
+    create(:manufacturer)
 
     # Act
     login_as(user, scope: :user)
@@ -22,8 +22,8 @@ feature 'Visitor view manufacturers' do
   scenario 'and return to home page' do
     subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
     user = User.create!(email: 'usuario@gmail.com', password: 'usuario123', subsidiary: subsidiary)
-    Manufacturer.create!(name: 'Fiat')
-    Manufacturer.create!(name: 'Volkswagen')
+    create(:manufacturer, name: 'Fiat')
+    create(:manufacturer)
 
     login_as(user, scope: :user)
     visit root_path
@@ -47,7 +47,7 @@ feature 'Visitor view manufacturers' do
   end
 
   scenario 'and must be authenticated to view details' do
-    manufacturer = Manufacturer.new(name: 'Fiat')
+    manufacturer = build(:manufacturer)
     
     visit manufacturer_path(manufacturer.name)
 
