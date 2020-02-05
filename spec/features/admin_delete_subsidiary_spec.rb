@@ -3,9 +3,9 @@ require 'rails_helper'
 feature 'Admin deletes subsidiary' do
   scenario 'successfully' do
     # Arrange
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    Subsidiary.create!(name: 'Hertz', cnpj: '52.675.752/0001-56', address: 'Avenida Brasil 67')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
+    subsidiary = create(:subsidiary, name: 'Alamo')
+    create(:subsidiary, name: 'Hertz')
+    user = create(:user, subsidiary: subsidiary)
 
     # Act
     login_as(user, scope: :user)
@@ -20,7 +20,7 @@ feature 'Admin deletes subsidiary' do
   end
 
   scenario 'and must be authenticated via routes' do
-    subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
+    subsidiary = create(:subsidiary)
     
     visit subsidiary_path(subsidiary.name)
 

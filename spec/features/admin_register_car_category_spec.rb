@@ -2,8 +2,8 @@ require 'rails_helper'
 
 feature 'Admin register car category' do
   scenario 'successfully' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -24,8 +24,8 @@ feature 'Admin register car category' do
   end
 
   scenario 'and must fill in all fields' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -46,9 +46,9 @@ feature 'Admin register car category' do
   end
 
   scenario 'and values must be greater than zero' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    
     login_as(user, scope: :user)
     visit root_path
     click_on 'Categorias'

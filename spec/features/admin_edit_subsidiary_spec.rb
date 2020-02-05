@@ -2,8 +2,9 @@ require 'rails_helper'
 
 feature 'Admin edits subsidiary' do
   scenario 'successfully' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
+    subsidiary = create(:subsidiary, name: 'Alamo', cnpj: '45.251.445/0001-82',
+                                     address: 'Rua da Consolação 101')
+    user = create(:user, subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -21,9 +22,9 @@ feature 'Admin edits subsidiary' do
   end
 
   scenario 'name must be unique' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    Subsidiary.create!(name: 'Hertz', cnpj: '52.675.752/0001-56', address: 'Avenida Brasil 67')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
+    subsidiary = create(:subsidiary, name: 'Alamo')
+    user = create(:user, subsidiary: subsidiary)
+    subsidiary = create(:subsidiary, name: 'Hertz')
 
     login_as(user, scope: :user)
     visit root_path
@@ -41,8 +42,8 @@ feature 'Admin edits subsidiary' do
   end
 
   scenario 'cnpj must be valid' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
+    subsidiary = create(:subsidiary, name: 'Alamo')
+    user = create(:user, subsidiary: subsidiary)
 
     login_as(user, scope: :user)
     visit root_path
@@ -60,8 +61,8 @@ feature 'Admin edits subsidiary' do
   end
 
   scenario 'and must be authenticated via routes' do
-    subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    
+    subsidiary = create(:subsidiary)
+        
     visit edit_subsidiary_path(subsidiary.name)
 
     expect(current_path).to eq(new_user_session_path)

@@ -2,9 +2,9 @@ require 'rails_helper'
 
 feature 'Admin edits manufacturer' do
   scenario 'successfully' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    Manufacturer.create(name: 'Fiat')
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    manufacturer = create(:manufacturer, name: 'Fiat')
 
     login_as(user, scope: :user)
     visit root_path
@@ -18,9 +18,9 @@ feature 'Admin edits manufacturer' do
   end
 
   scenario 'and must fill in all fields' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    Manufacturer.create(name: 'Fiat')
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    manufacturer = create(:manufacturer, name: 'Fiat')
 
     login_as(user, scope: :user)
     visit root_path
@@ -36,10 +36,10 @@ feature 'Admin edits manufacturer' do
   end
 
   scenario 'name must be unique' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    Manufacturer.create(name: 'Fiat')
-    Manufacturer.create!(name: 'Honda')
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    manufacturer = create(:manufacturer, name: 'Fiat')
+    manufacturer = create(:manufacturer, name: 'Honda')
 
     login_as(user, scope: :user)
     visit root_path
@@ -55,7 +55,7 @@ feature 'Admin edits manufacturer' do
   end
 
   scenario 'and must be authenticated via routes' do
-    manufacturer = Manufacturer.create(name: 'Fiat')
+    manufacturer = create(:manufacturer)
     
     visit edit_manufacturer_path(manufacturer.name)
 

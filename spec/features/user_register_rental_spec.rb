@@ -2,16 +2,14 @@ require 'rails_helper'
 
 feature 'User register rental' do
   scenario 'successfully' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-    manufacturer = Manufacturer.new(name: 'Fiat')
-    car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
-    car_model = CarModel.new(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                        motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-    car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    client = create(:client)
+    manufacturer = build(:manufacturer)
+    car_category = create(:car_category, name: 'A')
+    car_model = build(:car_model, manufacturer: manufacturer,
+                                  car_category: car_category)
+    car = create(:car, car_model: car_model, subsidiary: subsidiary)
 
     login_as user, scope: :user
     visit root_path
@@ -35,11 +33,11 @@ feature 'User register rental' do
   end
 
   scenario 'and start date must be greater than today' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-    CarCategory.create!(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    client = create(:client)
+    manufacturer = build(:manufacturer)
+    car_category = create(:car_category, name: 'A')
 
     login_as user, scope: :user
     visit root_path
@@ -56,11 +54,11 @@ feature 'User register rental' do
   end
 
   scenario 'and end date must be greater than start date' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-    CarCategory.create!(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    client = create(:client)
+    manufacturer = build(:manufacturer)
+    car_category = create(:car_category, name: 'A')
 
     login_as user, scope: :user
     visit root_path
@@ -77,11 +75,11 @@ feature 'User register rental' do
   end
 
   scenario 'and must have available cars in the period' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-    CarCategory.create!(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    client = create(:client)
+    manufacturer = build(:manufacturer)
+    car_category = create(:car_category, name: 'A')
 
     login_as user, scope: :user
     visit root_path

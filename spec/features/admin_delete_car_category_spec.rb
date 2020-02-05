@@ -3,12 +3,11 @@ require 'rails_helper'
 feature 'Admin deletes car category' do
   scenario 'successfully' do
     # Arrange
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    CarCategory.create!(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
-    CarCategory.create!(name: 'B', daily_rate: 21.7,
-                        car_insurance: 710.35, third_party_insurance: 150.1)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    create(:car_category, name: 'A')
+    create(:car_category, name: 'B')
+
     # Act
     login_as(user, scope: :user)
     visit root_path
@@ -22,8 +21,7 @@ feature 'Admin deletes car category' do
   end
 
   scenario 'and must be authenticated via routes' do
-    car_category = CarCategory.new(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
+    car_category = create(:car_category)
     
     visit car_category_path(car_category.name)
 

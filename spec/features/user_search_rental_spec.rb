@@ -2,22 +2,23 @@ require 'rails_helper'
 
 feature 'User search rental' do
   scenario 'successfully' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-    manufacturer = Manufacturer.new(name: 'Fiat')
-    car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                car_insurance: 700.95, third_party_insurance: 200.1)
-    car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                 motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-    car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                      subsidiary: subsidiary)
-    Rental.create!(code: 'XFB000', start_date: '19/01/2040', end_date: '22/01/2040', 
-                   client: client, car_category: car_category, user: user)
-    Rental.create!(code: 'XFB001', start_date: '26/01/2040', end_date: '29/01/2040', 
-                   client: client, car_category: car_category, user: user)
-    Rental.create!(code: 'XFB002', start_date: '01/02/2040', end_date: '04/02/2040', 
-                   client: client, car_category: car_category, user: user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, email: 'fake@user.com', subsidiary: subsidiary)
+    client = create(:client, name: 'João da Silva')
+    manufacturer = create(:manufacturer)
+    car_category = create(:car_category)
+    car_model = create(:car_model, manufacturer: manufacturer,
+                                   car_category: car_category)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
+    Rental.create!(code: 'XFB000', start_date: '19/01/2040', 
+                   end_date: '22/01/2040', client: client, 
+                   car_category: car_category, user: user)
+    Rental.create!(code: 'XFB001', start_date: '26/01/2040',
+                   end_date: '29/01/2040', client: client,
+                   car_category: car_category, user: user)
+    Rental.create!(code: 'XFB002', start_date: '01/02/2040',
+                   end_date: '04/02/2040', client: client,
+                   car_category: car_category, user: user)
 
     login_as user, scope: :user
     visit root_path
@@ -35,18 +36,17 @@ feature 'User search rental' do
   end
 
   scenario 'and rental not found' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-    manufacturer = Manufacturer.new(name: 'Fiat')
-    car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                car_insurance: 700.95, third_party_insurance: 200.1)
-    car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                 motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-    car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                      subsidiary: subsidiary)    
-    Rental.create!(code: 'XFB002', start_date: '01/02/2040', end_date: '04/02/2040', 
-                   client: client, car_category: car_category, user: user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, email: 'fake@user.com', subsidiary: subsidiary)
+    client = create(:client, name: 'João da Silva')
+    manufacturer = create(:manufacturer)
+    car_category = create(:car_category)
+    car_model = create(:car_model, manufacturer: manufacturer,
+                                   car_category: car_category)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
+    Rental.create!(code: 'XFB002', start_date: '01/02/2040',
+                   end_date: '04/02/2040', client: client,
+                   car_category: car_category, user: user)
 
     login_as user, scope: :user
     visit root_path
@@ -59,22 +59,23 @@ feature 'User search rental' do
   end
 
   scenario 'partially' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-    client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-    manufacturer = Manufacturer.new(name: 'Fiat')
-    car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                car_insurance: 700.95, third_party_insurance: 200.1)
-    car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                 motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-    car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                      subsidiary: subsidiary)
-    Rental.create!(code: 'XFB000', start_date: '19/01/2040', end_date: '22/01/2040', 
-                   client: client, car_category: car_category, user: user)
-    Rental.create!(code: 'XFB001', start_date: '26/01/2040', end_date: '29/01/2040', 
-                   client: client, car_category: car_category, user: user)
-    Rental.create!(code: 'XAB002', start_date: '01/02/2040', end_date: '04/02/2040', 
-                   client: client, car_category: car_category, user: user)
+    subsidiary = create(:subsidiary)
+    user = create(:user, email: 'fake@user.com', subsidiary: subsidiary)
+    client = create(:client, name: 'João da Silva')
+    manufacturer = create(:manufacturer)
+    car_category = create(:car_category)
+    car_model = create(:car_model, manufacturer: manufacturer,
+                                   car_category: car_category)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
+    Rental.create!(code: 'XFB000', start_date: '19/01/2040', 
+                   end_date: '22/01/2040', client: client, 
+                   car_category: car_category, user: user)
+    Rental.create!(code: 'XFB001', start_date: '26/01/2040',
+                   end_date: '29/01/2040', client: client,
+                   car_category: car_category, user: user)
+    Rental.create!(code: 'XAB002', start_date: '01/02/2040',
+                   end_date: '04/02/2040', client: client,
+                   car_category: car_category, user: user)
 
     login_as user, scope: :user
     visit root_path

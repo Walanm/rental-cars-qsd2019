@@ -2,10 +2,9 @@ require 'rails_helper'
 
 feature 'Admin edits car category' do
   scenario 'successfully' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    CarCategory.create!(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    create(:car_category, name: 'A')
 
     login_as(user, scope: :user)
     visit root_path
@@ -25,10 +24,9 @@ feature 'Admin edits car category' do
   end
 
   scenario 'and must fill in all fields' do
-    subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-    user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-    CarCategory.create!(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
+    subsidiary = create(:subsidiary)
+    user = create(:user, subsidiary: subsidiary)
+    create(:car_category, name: 'A')
 
     login_as(user, scope: :user)
     visit root_path
@@ -49,8 +47,7 @@ feature 'Admin edits car category' do
   end
 
   scenario 'and must be authenticated via routes' do
-    car_category = CarCategory.new(name: 'A', daily_rate: 19.5,
-                        car_insurance: 700.95, third_party_insurance: 200.1)
+    car_category = create(:car_category)
 
     visit edit_car_category_path(car_category.name)
 
