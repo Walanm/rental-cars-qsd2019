@@ -3,19 +3,20 @@ require 'rails_helper'
 describe 'Register Rental API' do
   context '#create' do
     it 'posts a json successfully' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', address: 'Rua da Consolação 101')
-      user = User.create!(email: 'test@example.com', password: 'f4k3p455w0rd', subsidiary: subsidiary)
-      client = Client.create!(name: 'João da Silva', email: 'client@client.com', document: '696.699.680-70')
-      manufacturer = Manufacturer.new(name: 'Peugeot')
-      car_category =CarCategory.create!(name: 'A', daily_rate: 19.5,
-                          car_insurance: 700.95, third_party_insurance: 200.1)
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                   motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      subsidiary = create(:subsidiary)
+      user = create(:user, subsidiary: subsidiary)
+      client = create(:client)
+      car_category = create(:car_category)
+      manufacturer = Manufacturer.new(name: 'Fiat')
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = create(:car, car_model: car_model, subsidiary: subsidiary)
       
-      post api_v1_rentals_url, params: { code: 'XFB000', start_date: Date.current, end_date: 1.day.from_now, 
-                                         client_id: client.id, car_category_id: car_category.id, user_id: user.id }
+      post api_v1_rentals_url, params: { code: 'XFB000', start_date: Date.current,
+                                         end_date: 1.day.from_now, 
+                                         client_id: client.id, 
+                                         car_category_id: car_category.id, 
+                                         user_id: user.id }
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:created)

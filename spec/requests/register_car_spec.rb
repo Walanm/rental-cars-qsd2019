@@ -3,14 +3,11 @@ require 'rails_helper'
 describe 'Register car API' do
   context '#create' do
     it 'posts a json successfully' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                  address: 'Rua da Consolação 101')
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                         car_insurance: 90.5, third_party_insurance: 100.1)
+      subsidiary = create(:subsidiary)
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                   motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)      
       post api_v1_cars_url, params: { license_plate: 'ABC1111', color: 'Azul', car_model_id: car_model.id, 
                                       mileage: 95, subsidiary_id: subsidiary.id }
       json = JSON.parse(response.body, symbolize_names: true)

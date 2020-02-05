@@ -4,15 +4,12 @@ require 'rails_helper'
 describe 'Receive car details API' do
   context '#show' do
     it 'renders a json successfully' do
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                  address: 'Rua da Consolação 101')
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                         car_insurance: 90.5, third_party_insurance: 100.1)
+      subsidiary = Subsidiary.new(name: 'Alamo')
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                   motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Prata', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = create(:car, car_model: car_model, subsidiary: subsidiary)
       
       get api_v1_car_path(car)
       json = JSON.parse(response.body, symbolize_names: true)
@@ -34,16 +31,16 @@ describe 'Receive car details API' do
 
   context '#index' do
     it 'renders a json successfully' do
-      subsidiary = Subsidiary.new(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                  address: 'Rua da Consolação 101')
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                         car_insurance: 90.5, third_party_insurance: 100.1)
+      subsidiary = Subsidiary.new(name: 'Alamo')
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                   motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Prata', car_model: car_model, mileage: 127, 
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = Car.create!(license_plate: 'NVN1010', color: 'Prata',
+                        car_model: car_model, mileage: 127, 
                         subsidiary: subsidiary)
-      other_car = Car.create!(license_plate: 'ABC1111', color: 'Azul', car_model: car_model, mileage: 95, 
+      other_car = Car.create!(license_plate: 'ABC1111', color: 'Azul',
+                              car_model: car_model, mileage: 95, 
                               subsidiary: subsidiary)
       
       get api_v1_cars_path

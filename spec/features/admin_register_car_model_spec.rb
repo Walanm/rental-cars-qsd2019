@@ -13,7 +13,6 @@ feature 'Admin register car model' do
     visit root_path
     click_on 'Modelos de Carro'
     click_on 'Registrar novo modelo'
-
     fill_in 'Nome', with: 'Uno'
     fill_in 'Ano', with: '2017'
     select 'Fiat', from: 'Fabricante'

@@ -50,17 +50,14 @@ describe Rental do
 
   describe '#have_available_cars' do
     it 'has a rental end date within new rental period' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                      address: 'Rua da Consolação 101')
-      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                        car_insurance: 90.5, third_party_insurance: 100.1)
-      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      subsidiary = create(:subsidiary)
+      user = create(:user, subsidiary: subsidiary)
+      client = create(:client)
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = create(:car, car_model: car_model, subsidiary: subsidiary)
       Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 4.day.from_now,
                      client: client, car_category: car_category, user: user)
       rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
@@ -72,17 +69,14 @@ describe Rental do
     end
 
     it 'has a rental start date within new rental period' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                      address: 'Rua da Consolação 101')
-      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5, car_insurance: 90.5, third_party_insurance: 100.1)
-      client = Client.new(name: 'Fulano', email: 'fulano@test.com',
-                              document: '000.000.000-00')
+      subsidiary = create(:subsidiary)
+      user = create(:user, subsidiary: subsidiary)
+      client = create(:client)
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = create(:car, car_model: car_model, subsidiary: subsidiary)
       Rental.create!(code: 'XFB0000', start_date: 4.day.from_now, end_date: 8.day.from_now,
                      client: client, car_category: car_category, user: user)
       rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
@@ -94,17 +88,14 @@ describe Rental do
     end
 
     it 'has a rental period entirely within new rental period' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                      address: 'Rua da Consolação 101')
-      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                        car_insurance: 90.5, third_party_insurance: 100.1)
-      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      subsidiary = create(:subsidiary)
+      user = create(:user, subsidiary: subsidiary)
+      client = create(:client)
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = create(:car, car_model: car_model, subsidiary: subsidiary)
       Rental.create!(code: 'XFB0000', start_date: 4.day.from_now, end_date: 5.day.from_now,
                      client: client, car_category: car_category, user: user)
       rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
@@ -116,17 +107,14 @@ describe Rental do
     end
 
     it 'has a rental period that covers entirely new rental period' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                      address: 'Rua da Consolação 101')
-      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                        car_insurance: 90.5, third_party_insurance: 100.1)
-      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      subsidiary = create(:subsidiary)
+      user = create(:user, subsidiary: subsidiary)
+      client = create(:client)
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = create(:car, car_model: car_model, subsidiary: subsidiary)
       Rental.create!(code: 'XFB0000', start_date: Date.current, end_date: 8.day.from_now,
                      client: client, car_category: car_category, user: user)
       rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
@@ -138,17 +126,14 @@ describe Rental do
     end
 
     it 'has car available' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                      address: 'Rua da Consolação 101')
-      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                        car_insurance: 90.5, third_party_insurance: 100.1)
-      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
+      subsidiary = create(:subsidiary)
+      user = create(:user, subsidiary: subsidiary)
+      client = create(:client)
+      car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      car_model = create(:car_model, manufacturer: manufacturer, 
+                                     car_category: car_category)
+      car = create(:car, car_model: car_model, subsidiary: subsidiary)
       rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
                           client: client, car_category: car_category, user: user)
       
@@ -158,23 +143,22 @@ describe Rental do
     end
 
     it 'only has available car in other category' do
-      subsidiary = Subsidiary.create!(name: 'Alamo', cnpj: '45.251.445/0001-82', 
-                                      address: 'Rua da Consolação 101')
-      user = User.create!(email: 'fake@user.com', password: 'fAk3pA55w0rd', subsidiary: subsidiary)
-      car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                        car_insurance: 90.5, third_party_insurance: 100.1)
-      client = Client.new(name: 'Fulano', email: 'fulano@test.com', document: '000.000.000-00')
-      manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = CarModel.create!(name: 'Mobi', year: '2019', manufacturer: manufacturer,
-                                  motorization: '1.6', car_category: car_category, fuel_type: 'gasoline')
-      other_car_category = CarCategory.create!(name: 'A', daily_rate: 19.5,
-                                               car_insurance: 90.5, third_party_insurance: 100.1)
-      other_car_model = CarModel.create!(name: 'FOX', year: '2019', manufacturer: manufacturer,
-                                  motorization: '1.6', car_category: other_car_category, fuel_type: 'gasoline')
-      other_car = Car.create!(license_plate: 'AVN1010', color: 'Azul', car_model: other_car_model, mileage: 127, 
-                                  subsidiary: subsidiary)
-      car = Car.create!(license_plate: 'NVN1010', color: 'Azul', car_model: car_model, mileage: 127, 
-                        subsidiary: subsidiary)
+      subsidiary = create(:subsidiary)
+      user = create(:user, subsidiary: subsidiary)
+      car_category = create(:car_category, name: 'A')
+      other_car_category = create(:car_category, name: 'B')
+      client = create(:client)
+      manufacturer = create(:manufacturer, name: 'Fiat')
+      car_model = create(:car_model, name: 'Mobi', manufacturer: manufacturer,
+                                     car_category: car_category)
+      other_car_model = create(:car_model, name: 'Uno', 
+                                           manufacturer: manufacturer,
+                                           car_category: other_car_category)
+      car = create(:car, license_plate: 'NVN1010', color: 'Azul',
+                         car_model: car_model, subsidiary: subsidiary)
+      other_car = create(:car, license_plate: 'ABC1122', color: 'Vermelho', 
+                               car_model: other_car_model,
+                               subsidiary: subsidiary)
       Rental.create!(code: 'XFB0000', start_date: 4.day.from_now, end_date: 5.day.from_now,
                     client: client, car_category: car_category, user: user)
       rental = Rental.new(code: 'XFB0001', start_date: 2.day.from_now, end_date: 6.day.from_now,
