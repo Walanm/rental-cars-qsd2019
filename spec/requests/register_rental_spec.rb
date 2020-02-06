@@ -33,11 +33,11 @@ describe 'Register Rental API' do
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(json[:start_date]).to include("Data de Início não pode ficar em branco")
-      expect(json[:end_date]).to include("Data de Término não pode ficar em branco")
-      expect(json[:client]).to include("must exist")
-      expect(json[:car_category]).to include("must exist")
-      expect(json[:user]).to include("must exist")
+      expect(json[:start_date]).to include('Data de Início não pode ficar em branco')
+      expect(json[:end_date]).to include('Data de Término não pode ficar em branco')
+      expect(json[:client]).to include('é obrigatório(a)')
+      expect(json[:car_category]).to include('é obrigatório(a)')
+      expect(json[:user]).to include('é obrigatório(a)')
     end
   end
 end
