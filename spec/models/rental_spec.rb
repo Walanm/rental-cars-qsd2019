@@ -18,8 +18,7 @@ describe Rental do
 
       expect(rental.errors[:start_date])
         .not_to include('Data de início não pode ser no passado')
-      expect(rental.errors[:start_date])
-        .to include('Data de Início não pode ficar em branco')
+      expect(rental.errors[:start_date]).to include('não pode ficar em branco')
     end
   end
 
@@ -40,8 +39,7 @@ describe Rental do
 
       expect(rental.errors[:end_date])
         .not_to include('Data de término deve ser após data de início')
-      expect(rental.errors[:end_date])
-        .to include('Data de Término não pode ficar em branco')
+      expect(rental.errors[:end_date]).to include('não pode ficar em branco')
     end
 
     it 'doesnt have start date' do
@@ -52,8 +50,7 @@ describe Rental do
       expect(rental.errors[:end_date]).not_to include('Data de término deve' \
                                                       ' ser após data de' \
                                                       ' início')
-      expect(rental.errors[:start_date]).to include('Data de Início não pode' \
-                                                    ' ficar em branco')
+      expect(rental.errors[:start_date]).to include('não pode ficar em branco')
     end
   end
 

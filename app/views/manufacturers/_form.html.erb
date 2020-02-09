@@ -7,7 +7,7 @@
 <% end %>
 
 <%= form_for manufacturer do |f| %>
-  <%= f.label :name, 'Nome' %>
+  <%= f.label :name, attr_translate('manufacturer.name') %>
   <%= f.text_field :name %>
   <%= f.submit 'Enviar' %>
 <% end %>

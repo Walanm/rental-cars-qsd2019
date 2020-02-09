@@ -18,10 +18,7 @@ class CarModelsController < ApplicationController
 
   def create
     @car_model = CarModel.new(car_model_params)
-    if @car_model.save
-      flash[:notice] = 'Modelo de carro registrado com sucesso'
-      return redirect_to @car_model
-    end
+    return redirect_to @car_model, notice: t('.success') if @car_model.save
 
     load_manufacturers
     load_car_categories
@@ -30,8 +27,7 @@ class CarModelsController < ApplicationController
 
   def update
     if @car_model.update(car_model_params)
-      flash[:notice] = 'Modelo de carro atualizado com sucesso'
-      return redirect_to @car_model
+      return redirect_to @car_model, notice: t('.success')
     end
 
     load_manufacturers

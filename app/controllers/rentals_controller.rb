@@ -19,10 +19,7 @@ class RentalsController < ApplicationController
     @rental = Rental.new(rental_params)
     @rental.code = SecureRandom.hex(6)
     @rental.user = current_user
-
-    if @rental.save
-      return redirect_to @rental, notice: 'Locação registrada com sucesso'
-    end
+    return redirect_to @rental, notice: t('.success') if @rental.save
 
     @clients = Client.all
     @car_categories = CarCategory.all

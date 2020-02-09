@@ -41,7 +41,7 @@ feature 'Admin register car' do
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para' \
                                  ' continuar')
-    expect(page).to have_content('Placa não pode ficar em branco')
+    expect(page).to have_content('Placa de carro não pode ficar em branco')
     expect(page).to have_content('Cor não pode ficar em branco')
     expect(page).to have_content('Modelo de carro não pode ficar em branco')
     expect(page).to have_content('Quilometragem não pode ficar em branco')
@@ -71,7 +71,7 @@ feature 'Admin register car' do
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para' \
                                  ' continuar')
-    expect(page).to have_content('Placa deve ser única')
+    expect(page).to have_content('Placa de carro já está em uso')
   end
 
   scenario 'mileage must be equal or greater than zero' do
@@ -95,7 +95,7 @@ feature 'Admin register car' do
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para' \
                                  ' continuar')
-    expect(page).to have_content('Quilometragem deve ser maior ou igual a zero')
+    expect(page).to have_content('Quilometragem deve ser maior ou igual a 0')
   end
 
   scenario 'and must be authenticated via routes' do

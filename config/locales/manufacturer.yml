@@ -2,7 +2,9 @@
 pt-BR:
   manufacturers:
     create:
-      success: 'Fabricante registrado com sucesso'
+      success: 'Fabricante criada com sucesso'
+    update:
+      success: 'Fabricante atualizada com sucesso'
   activerecord:
     models:
       manufacturer:

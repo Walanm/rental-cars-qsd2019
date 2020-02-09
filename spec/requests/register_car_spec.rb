@@ -27,15 +27,11 @@ describe 'Register car API' do
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(json[:car_model]).to include('Modelo de carro não pode ficar em' \
-                                          ' branco')
-      expect(json[:subsidiary]).to include('Filial não pode ficar em branco')
-      expect(json[:license_plate]).to include('Placa não pode ficar em branco')
-      expect(json[:color]).to include('Cor não pode ficar em branco')
-      expect(json[:mileage]).to include('Quilometragem não pode ficar em' \
-                                        ' branco')
-      expect(json[:mileage]).to include('Quilometragem deve ser maior ou' \
-                                        ' igual a zero')
+      expect(json[:car_model]).to include('é obrigatório(a)')
+      expect(json[:subsidiary]).to include('é obrigatório(a)')
+      expect(json[:license_plate]).to include('não pode ficar em branco')
+      expect(json[:color]).to include('não pode ficar em branco')
+      expect(json[:mileage]).to include('não pode ficar em branco')
     end
   end
 end

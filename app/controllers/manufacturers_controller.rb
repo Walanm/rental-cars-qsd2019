@@ -19,14 +19,14 @@ class ManufacturersController < ApplicationController
 
     return render :new unless @manufacturer.save
 
-    flash[:notice] = 'Fabricante criada com sucesso'
+    flash[:notice] = t('.success')
     redirect_to @manufacturer
   end
 
   def update
     return render :edit unless @manufacturer.update(manufacturer_params)
 
-    flash[:notice] = 'Fabricante atualizada com sucesso'
+    flash[:notice] = t('.success')
     redirect_to @manufacturer
   end
 

@@ -1,0 +1,21 @@
+---
+pt-BR:
+  subsidiaries:
+    create:
+      success: 'Filial criada com sucesso'
+    update:
+      success: 'Filial atualizada com sucesso'
+  activerecord:
+    models:
+      subsidiary:
+        one: 'Filial'
+        other: 'Filiais'
+    attributes:
+      subsidiary:
+        name: 'Nome'
+        cnpj: 'CNPJ'
+        address: 'Endereço'
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      invalid_cnpj: deve ser válido

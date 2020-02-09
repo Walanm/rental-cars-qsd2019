@@ -37,7 +37,7 @@ feature 'Admin register subsidiary' do
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para' \
                                  ' continuar')
-    expect(page).to have_content('Nome deve ser único')
+    expect(page).to have_content('Nome já está em uso')
   end
 
   scenario 'cnpj must be valid' do

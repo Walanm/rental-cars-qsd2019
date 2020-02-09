@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
 
     return render :new unless @client.save
 
-    flash[:notice] = 'Cliente registrado com sucesso'
+    flash[:notice] = t('.success')
     redirect_to @client
   end
 

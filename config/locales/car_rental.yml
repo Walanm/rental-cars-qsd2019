@@ -1,0 +1,18 @@
+---
+pt-BR:
+  car_rentals:
+    create:
+      success: 'Locação iniciada com sucesso'
+  activerecord:
+    models:
+      car_rental:
+        one: 'Locação de Carro'
+        other: 'Locações de Carro'
+    attributes:
+      car_rental:
+        name: 'Nome'
+        daily_rate: 'Taxa Diária'
+        car_insurance: 'Seguro do Carro'
+        third_party_insurance: 'Seguro contra Terceiros'
+        start_mileage: 'Quilometragem Inicial'
+        end_mileage: 'Quilometragem Final'

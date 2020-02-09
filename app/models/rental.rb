@@ -5,10 +5,8 @@ class Rental < ApplicationRecord
   has_one :car_rental, dependent: :restrict_with_exception
   has_one :subsidiary, through: :user
 
-  validates :start_date,
-            presence: { message: 'Data de Início não pode ficar em branco' }
-  validates :end_date,
-            presence: { message: 'Data de Término não pode ficar em branco' }
+  validates :start_date, presence: true
+  validates :end_date, presence: true
 
   validate :start_date_cannot_be_in_the_past,
            :end_date_greater_than_start_date,

@@ -1,3 +1,5 @@
+<h1>Detalhes do <%= t("activerecord.models.manufacturer.one") %></h1>
+<h3><%= Manufacturer.human_attribute_name(:name) %></h3>
 <%= @manufacturer.name %>
 
 <%= link_to 'Editar', edit_manufacturer_path(@manufacturer) %>

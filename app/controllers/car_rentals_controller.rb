@@ -12,7 +12,7 @@ class CarRentalsController < ApplicationController
                                                 start_mileage: @car.mileage))
       @rental.in_progress!
       @car.unavailable!
-      redirect_to @rental, notice: 'Locação iniciada com sucesso'
+      redirect_to @rental, notice: t('.success')
     else
       @rental = Rental.find(params[:rental_id])
       @cars = search_available_cars

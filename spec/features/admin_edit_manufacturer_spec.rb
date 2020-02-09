@@ -53,7 +53,7 @@ feature 'Admin edits manufacturer' do
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para' \
                                  ' continuar')
-    expect(page).to have_content('Nome deve ser único')
+    expect(page).to have_content('Nome já está em uso')
   end
 
   scenario 'and must be authenticated via routes' do

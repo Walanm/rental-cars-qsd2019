@@ -16,17 +16,16 @@ class CarCategoriesController < ApplicationController
 
   def create
     @car_category = CarCategory.new(car_categories_params)
-
     return render :new unless @car_category.save
 
-    flash[:notice] = 'Categoria criada com sucesso'
+    flash[:notice] = t('.success')
     redirect_to @car_category
   end
 
   def update
     return render :edit unless @car_category.update(car_categories_params)
 
-    flash[:notice] = 'Categoria atualizada com sucesso'
+    flash[:notice] = t('.success')
     redirect_to @car_category
   end
 

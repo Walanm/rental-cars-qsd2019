@@ -64,10 +64,10 @@ feature 'Admin register car category' do
 
     expect(page).to have_content('Você deve corrigir os seguintes erros para' \
                                  ' continuar')
-    expect(page).to have_content('Taxa Diária deve ser maior que zero')
-    expect(page).to have_content('Seguro do Carro deve ser maior que zero')
+    expect(page).to have_content('Taxa Diária deve ser maior que 0')
+    expect(page).to have_content('Seguro do Carro deve ser maior que 0')
     expect(page).to have_content('Seguro contra Terceiros deve ser' \
-                                 ' maior que zero')
+                                 ' maior que 0')
   end
 
   scenario 'and must be authenticated via button' do

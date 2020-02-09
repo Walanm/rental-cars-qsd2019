@@ -2,18 +2,12 @@ class CarRental < ApplicationRecord
   belongs_to :car
   belongs_to :rental
 
-  before_validation :register_current_costs
+  before_validation :register_current_costs, on: :create
 
-  validates :daily_rate,
-            presence: { message: 'Taxa Diária não pode ficar em branco' }
-  validates :car_insurance,
-            presence: { message: 'Seguro do Carro não pode ficar em branco' }
-  validates :third_party_insurance,
-            presence: { message: 'Seguro contra Terceiros não pode' \
-                                 ' ficar em branco' }
-  validates :start_mileage,
-            presence: { message: 'Quilometragem Inicial não pode' \
-                                 ' ficar em branco' }
+  validates :daily_rate, presence: true
+  validates :car_insurance, presence: true
+  validates :third_party_insurance, presence: true
+  validates :start_mileage, presence: true
 
   def daily_price
     daily_rate + car_insurance + third_party_insurance

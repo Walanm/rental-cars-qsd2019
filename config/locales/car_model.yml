@@ -1,0 +1,20 @@
+---
+pt-BR:
+  car_models:
+    create:
+      success: 'Modelo de carro registrado com sucesso'
+    update:
+      success: 'Modelo de carro atualizado com sucesso'
+  activerecord:
+    models:
+      car_model:
+        one: 'Modelo de Carro'
+        other: 'Modelos de Carro'
+    attributes:
+      car_model:
+        name: 'Nome'
+        year: 'Ano'
+        manufacturer: 'Fabricante'
+        motorization: 'Motorização'
+        car_category: 'Categoria'
+        fuel_type: 'Tipo de Combustível'

@@ -19,14 +19,14 @@ class SubsidiariesController < ApplicationController
 
     return render :new unless @subsidiary.save
 
-    flash[:notice] = 'Filial criada com sucesso'
+    flash[:notice] = t('.success')
     redirect_to @subsidiary
   end
 
   def update
     return render :edit unless @subsidiary.update(subsidiary_params)
 
-    flash[:notice] = 'Filial atualizada com sucesso'
+    flash[:notice] = t('.success')
     redirect_to @subsidiary
   end
 
