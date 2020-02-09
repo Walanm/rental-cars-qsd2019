@@ -21,7 +21,7 @@ feature 'Admin deletes subsidiary' do
 
   scenario 'and must be authenticated via routes' do
     subsidiary = create(:subsidiary)
-    
+
     visit subsidiary_path(subsidiary.name)
 
     expect(current_path).to eq(new_user_session_path)

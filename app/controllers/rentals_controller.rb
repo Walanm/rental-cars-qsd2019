@@ -1,5 +1,5 @@
 class RentalsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: %i[new create]
   def index
     @rentals = Rental.all
   end
@@ -20,8 +20,9 @@ class RentalsController < ApplicationController
     @rental.code = SecureRandom.hex(6)
     @rental.user = current_user
 
-    return redirect_to @rental,
-      notice: 'Locação registrada com sucesso' if @rental.save
+    if @rental.save
+      return redirect_to @rental, notice: 'Locação registrada com sucesso'
+    end
 
     @clients = Client.all
     @car_categories = CarCategory.all
@@ -38,6 +39,7 @@ class RentalsController < ApplicationController
   private
 
   def rental_params
-    params.require(:rental).permit(:code, :start_date, :end_date, :client_id, :car_category_id, :user_id)
+    params.require(:rental).permit(:code, :start_date, :end_date, :client_id,
+                                   :car_category_id, :user_id)
   end
 end

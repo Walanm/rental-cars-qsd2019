@@ -6,9 +6,9 @@ feature 'Admin register car' do
     user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer)
     car_category = create(:car_category)
-    create(:car_model, name: 'Uno', manufacturer: manufacturer, 
+    create(:car_model, name: 'Uno', manufacturer: manufacturer,
                        car_category: car_category)
-    
+
     login_as user, scope: :user
     visit root_path
     click_on 'Carros'
@@ -32,14 +32,15 @@ feature 'Admin register car' do
     subsidiary = create(:subsidiary)
     user = create(:user, subsidiary: subsidiary)
     subsidiary.delete
-    
+
     login_as user, scope: :user
     visit root_path
     click_on 'Carros'
     click_on 'Registrar novo carro'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Placa não pode ficar em branco')
     expect(page).to have_content('Cor não pode ficar em branco')
     expect(page).to have_content('Modelo de carro não pode ficar em branco')
@@ -52,11 +53,11 @@ feature 'Admin register car' do
     user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer)
     car_category = create(:car_category)
-    car_model = create(:car_model, name: 'Uno', manufacturer: manufacturer, 
+    car_model = create(:car_model, name: 'Uno', manufacturer: manufacturer,
                                    car_category: car_category)
     create(:car, license_plate: 'NVN1010', car_model: car_model,
                  subsidiary: subsidiary)
-    
+
     login_as user, scope: :user
     visit root_path
     click_on 'Carros'
@@ -68,7 +69,8 @@ feature 'Admin register car' do
     select 'Alamo', from: 'Filial'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Placa deve ser única')
   end
 
@@ -77,7 +79,7 @@ feature 'Admin register car' do
     user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer)
     car_category = create(:car_category)
-    create(:car_model, name: 'Uno', manufacturer: manufacturer, 
+    create(:car_model, name: 'Uno', manufacturer: manufacturer,
                        car_category: car_category)
 
     login_as user, scope: :user
@@ -91,7 +93,8 @@ feature 'Admin register car' do
     select 'Alamo', from: 'Filial'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Quilometragem deve ser maior ou igual a zero')
   end
 

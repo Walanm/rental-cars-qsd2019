@@ -10,8 +10,8 @@ feature 'User search rental' do
     car_model = create(:car_model, manufacturer: manufacturer,
                                    car_category: car_category)
     create(:car, car_model: car_model, subsidiary: subsidiary)
-    Rental.create!(code: 'XFB000', start_date: '19/01/2040', 
-                   end_date: '22/01/2040', client: client, 
+    Rental.create!(code: 'XFB000', start_date: '19/01/2040',
+                   end_date: '22/01/2040', client: client,
                    car_category: car_category, user: user)
     Rental.create!(code: 'XFB001', start_date: '26/01/2040',
                    end_date: '29/01/2040', client: client,
@@ -54,7 +54,8 @@ feature 'User search rental' do
     fill_in 'Pesquisa', with: 'xfb000'
     click_on 'Buscar'
 
-    expect(page).to have_content('Nenhum resultado encontrado para o termo xfb000')
+    expect(page).to have_content('Nenhum resultado encontrado para o termo' \
+                                 ' xfb000')
     expect(page).not_to have_content('XFB002')
   end
 
@@ -67,8 +68,8 @@ feature 'User search rental' do
     car_model = create(:car_model, manufacturer: manufacturer,
                                    car_category: car_category)
     create(:car, car_model: car_model, subsidiary: subsidiary)
-    Rental.create!(code: 'XFB000', start_date: '19/01/2040', 
-                   end_date: '22/01/2040', client: client, 
+    Rental.create!(code: 'XFB000', start_date: '19/01/2040',
+                   end_date: '22/01/2040', client: client,
                    car_category: car_category, user: user)
     Rental.create!(code: 'XFB001', start_date: '26/01/2040',
                    end_date: '29/01/2040', client: client,

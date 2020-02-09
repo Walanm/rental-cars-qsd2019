@@ -6,7 +6,7 @@ describe 'Update car status API' do
       subsidiary = create(:subsidiary)
       car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = create(:car_model, manufacturer: manufacturer, 
+      car_model = create(:car_model, manufacturer: manufacturer,
                                      car_category: car_category)
       car = create(:car, license_plate: 'NVN1010', car_model: car_model,
                          subsidiary: subsidiary, status: :available)
@@ -23,7 +23,7 @@ describe 'Update car status API' do
       subsidiary = create(:subsidiary)
       car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = create(:car_model, manufacturer: manufacturer, 
+      car_model = create(:car_model, manufacturer: manufacturer,
                                      car_category: car_category)
       car = create(:car, license_plate: 'NVN1010', car_model: car_model,
                          subsidiary: subsidiary, status: :unavailable)
@@ -40,7 +40,7 @@ describe 'Update car status API' do
       subsidiary = create(:subsidiary)
       car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = create(:car_model, manufacturer: manufacturer, 
+      car_model = create(:car_model, manufacturer: manufacturer,
                                      car_category: car_category)
       car = create(:car, license_plate: 'NVN1010', car_model: car_model,
                          subsidiary: subsidiary)

@@ -5,7 +5,7 @@ feature 'Admin view subsidiaries' do
     # Arrange
     subsidiary = create(:subsidiary, name: 'Alamo', cnpj: '45.251.445/0001-82',
                                      address: 'Rua da Consolação 101')
-    create(:subsidiary,name: 'Hertz')
+    create(:subsidiary, name: 'Hertz')
     user = create(:user, subsidiary: subsidiary)
 
     # Act

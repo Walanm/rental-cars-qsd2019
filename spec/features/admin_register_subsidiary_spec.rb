@@ -35,7 +35,8 @@ feature 'Admin register subsidiary' do
     fill_in 'Endereço', with: 'Rua da Consolação 101'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Nome deve ser único')
   end
 
@@ -53,7 +54,8 @@ feature 'Admin register subsidiary' do
     fill_in 'Endereço', with: 'Rua da Consolação 101'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('CNPJ deve ser válido')
   end
 

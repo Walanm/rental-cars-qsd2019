@@ -28,7 +28,7 @@ feature 'Admin view car categories' do
     user = create(:user, subsidiary: subsidiary)
     create(:car_category, name: 'A')
     create(:car_category, name: 'B')
-    
+
     login_as(user, scope: :user)
     visit root_path
     click_on 'Categorias'

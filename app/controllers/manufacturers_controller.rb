@@ -1,20 +1,18 @@
 class ManufacturersController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :show, :new, :create, :edit, :update]
-  before_action :set_manufacturer, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: %i[index show new create edit update]
+  before_action :set_manufacturer, only: %i[show edit update]
 
   def index
     @manufacturers = Manufacturer.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @manufacturer = Manufacturer.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @manufacturer = Manufacturer.new(manufacturer_params)
@@ -27,7 +25,7 @@ class ManufacturersController < ApplicationController
 
   def update
     return render :edit unless @manufacturer.update(manufacturer_params)
-    
+
     flash[:notice] = 'Fabricante atualizada com sucesso'
     redirect_to @manufacturer
   end

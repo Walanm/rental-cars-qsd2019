@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 describe 'Receive car details API' do
@@ -7,10 +6,10 @@ describe 'Receive car details API' do
       subsidiary = Subsidiary.new(name: 'Alamo')
       car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = create(:car_model, manufacturer: manufacturer, 
+      car_model = create(:car_model, manufacturer: manufacturer,
                                      car_category: car_category)
       car = create(:car, car_model: car_model, subsidiary: subsidiary)
-      
+
       get api_v1_car_path(car)
       json = JSON.parse(response.body, symbolize_names: true)
 
@@ -34,15 +33,15 @@ describe 'Receive car details API' do
       subsidiary = Subsidiary.new(name: 'Alamo')
       car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = create(:car_model, manufacturer: manufacturer, 
+      car_model = create(:car_model, manufacturer: manufacturer,
                                      car_category: car_category)
       car = Car.create!(license_plate: 'NVN1010', color: 'Prata',
-                        car_model: car_model, mileage: 127, 
+                        car_model: car_model, mileage: 127,
                         subsidiary: subsidiary)
       other_car = Car.create!(license_plate: 'ABC1111', color: 'Azul',
-                              car_model: car_model, mileage: 95, 
+                              car_model: car_model, mileage: 95,
                               subsidiary: subsidiary)
-      
+
       get api_v1_cars_path
       json = JSON.parse(response.body, symbolize_names: true)
 

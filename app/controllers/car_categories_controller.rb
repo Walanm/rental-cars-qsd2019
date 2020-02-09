@@ -1,24 +1,22 @@
 class CarCategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_car_category, only: [:show, :edit, :update, :destroy]
-  
+  before_action :set_car_category, only: %i[show edit update destroy]
+
   def index
     @car_categories = CarCategory.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @car_category = CarCategory.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @car_category = CarCategory.new(car_categories_params)
-    
+
     return render :new unless @car_category.save
 
     flash[:notice] = 'Categoria criada com sucesso'
@@ -40,7 +38,8 @@ class CarCategoriesController < ApplicationController
   private
 
   def car_categories_params
-    params.require(:car_category).permit(:name, :daily_rate, :car_insurance, :third_party_insurance)
+    params.require(:car_category).permit(:name, :daily_rate, :car_insurance,
+                                         :third_party_insurance)
   end
 
   def set_car_category

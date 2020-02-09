@@ -6,7 +6,7 @@ feature 'Admin view car models' do
     user = create(:user, subsidiary: subsidiary)
     manufacturer = create(:manufacturer, name: 'Fiat')
     car_category = create(:car_category, name: 'B', daily_rate: 21.7,
-                                         car_insurance: 710.35, 
+                                         car_insurance: 710.35,
                                          third_party_insurance: 150.1)
     create(:car_model, name: 'Mobi', manufacturer: manufacturer,
                        car_category: car_category)
@@ -73,5 +73,4 @@ feature 'Admin view car models' do
 
     expect(current_path).to eq(new_user_session_path)
   end
-
 end

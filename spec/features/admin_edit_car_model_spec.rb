@@ -8,8 +8,8 @@ feature 'Admin edit car model' do
     create(:manufacturer, name: 'Volkswagen')
     car_category = create(:car_category, name: 'A')
     create(:car_category, name: 'B')
-    create(:car_model, name: 'Uno', year: '2017', manufacturer: manufacturer, 
-                       motorization: '1.7', car_category: car_category, 
+    create(:car_model, name: 'Uno', year: '2017', manufacturer: manufacturer,
+                       motorization: '1.7', car_category: car_category,
                        fuel_type: 'diesel')
 
     login_as(user, scope: :user)
@@ -55,11 +55,13 @@ feature 'Admin edit car model' do
     fill_in 'Tipo de Combustível', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Ano não pode ficar em branco')
     expect(page).to have_content('Motorização não pode ficar em branco')
-    expect(page).to have_content('Tipo de Combustível não pode ficar em branco')
+    expect(page).to have_content('Tipo de Combustível não pode ficar em' \
+                                 ' branco')
   end
 
   scenario 'and must be authenticated via routes' do

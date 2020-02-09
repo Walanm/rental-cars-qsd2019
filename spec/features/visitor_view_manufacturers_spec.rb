@@ -48,7 +48,7 @@ feature 'Visitor view manufacturers' do
 
   scenario 'and must be authenticated to view details' do
     manufacturer = build(:manufacturer)
-    
+
     visit manufacturer_path(manufacturer.name)
 
     expect(current_path).to eq(new_user_session_path)

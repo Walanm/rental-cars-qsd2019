@@ -40,13 +40,15 @@ feature 'Admin register car model' do
     click_on 'Registrar novo modelo'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Ano não pode ficar em branco')
     expect(page).to have_content('Fabricante não pode ficar em branco')
     expect(page).to have_content('Motorização não pode ficar em branco')
     expect(page).to have_content('Categoria não pode ficar em branco')
-    expect(page).to have_content('Tipo de Combustível não pode ficar em branco')
+    expect(page).to have_content('Tipo de Combustível não pode ficar em' \
+                                 ' branco')
   end
 
   scenario 'and must be authenticated via routes' do

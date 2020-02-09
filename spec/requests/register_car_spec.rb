@@ -6,10 +6,12 @@ describe 'Register car API' do
       subsidiary = create(:subsidiary)
       car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = create(:car_model, manufacturer: manufacturer, 
-                                     car_category: car_category)      
-      post api_v1_cars_url, params: { license_plate: 'ABC1111', color: 'Azul', car_model_id: car_model.id, 
-                                      mileage: 95, subsidiary_id: subsidiary.id }
+      car_model = create(:car_model, manufacturer: manufacturer,
+                                     car_category: car_category)
+      post api_v1_cars_url, params: { license_plate: 'ABC1111', color: 'Azul',
+                                      car_model_id: car_model.id,
+                                      mileage: 95,
+                                      subsidiary_id: subsidiary.id }
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:created)
@@ -25,12 +27,15 @@ describe 'Register car API' do
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(json[:car_model]).to include('Modelo de carro não pode ficar em branco')
+      expect(json[:car_model]).to include('Modelo de carro não pode ficar em' \
+                                          ' branco')
       expect(json[:subsidiary]).to include('Filial não pode ficar em branco')
       expect(json[:license_plate]).to include('Placa não pode ficar em branco')
       expect(json[:color]).to include('Cor não pode ficar em branco')
-      expect(json[:mileage]).to include('Quilometragem não pode ficar em branco')
-      expect(json[:mileage]).to include('Quilometragem deve ser maior ou igual a zero')
+      expect(json[:mileage]).to include('Quilometragem não pode ficar em' \
+                                        ' branco')
+      expect(json[:mileage]).to include('Quilometragem deve ser maior ou' \
+                                        ' igual a zero')
     end
   end
 end

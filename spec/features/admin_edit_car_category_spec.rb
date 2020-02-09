@@ -39,11 +39,13 @@ feature 'Admin edits car category' do
     fill_in 'Seguro contra Terceiros', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Taxa Diária não pode ficar em branco')
     expect(page).to have_content('Seguro do Carro não pode ficar em branco')
-    expect(page).to have_content('Seguro contra Terceiros não pode ficar em branco')  
+    expect(page).to have_content('Seguro contra Terceiros não pode ficar em' \
+                                 ' branco')
   end
 
   scenario 'and must be authenticated via routes' do

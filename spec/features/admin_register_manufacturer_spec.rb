@@ -29,7 +29,8 @@ feature 'Admin register manufacturer' do
     fill_in 'Nome', with: ''
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Nome não pode ficar em branco')
   end
 
@@ -46,7 +47,8 @@ feature 'Admin register manufacturer' do
     fill_in 'Nome', with: 'Honda'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Nome deve ser único')
   end
 

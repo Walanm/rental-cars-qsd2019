@@ -1,5 +1,5 @@
 class CarsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: %i[new create]
 
   def index
     @cars = Car.all
@@ -17,8 +17,11 @@ class CarsController < ApplicationController
 
   def create
     @car = Car.new(car_params)
-    return redirect_to @car,
-      notice: 'Carro registrado com sucesso' if @car.save
+
+    if @car.save
+      flash[:notice] = 'Carro registrado com sucesso'
+      return redirect_to @car
+    end
 
     @car_models = CarModel.all
     @subsidiaries = Subsidiary.all
@@ -28,7 +31,7 @@ class CarsController < ApplicationController
   private
 
   def car_params
-    params.require(:car).permit(:license_plate, :color, :car_model_id, :mileage, :subsidiary_id)
+    params.require(:car).permit(:license_plate, :color, :car_model_id,
+                                :mileage, :subsidiary_id)
   end
-
 end

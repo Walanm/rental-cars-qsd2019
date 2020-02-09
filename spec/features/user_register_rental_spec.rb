@@ -9,7 +9,7 @@ feature 'User register rental' do
     car_category = create(:car_category, name: 'A')
     car_model = build(:car_model, manufacturer: manufacturer,
                                   car_category: car_category)
-    car = create(:car, car_model: car_model, subsidiary: subsidiary)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
 
     login_as user, scope: :user
     visit root_path
@@ -36,8 +36,7 @@ feature 'User register rental' do
     subsidiary = create(:subsidiary)
     user = create(:user, subsidiary: subsidiary)
     client = create(:client)
-    manufacturer = build(:manufacturer)
-    car_category = create(:car_category, name: 'A')
+    create(:car_category, name: 'A')
 
     login_as user, scope: :user
     visit root_path
@@ -49,7 +48,8 @@ feature 'User register rental' do
     select 'A', from: 'Categoria de Carro'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Data de início não pode ser no passado')
   end
 
@@ -57,8 +57,7 @@ feature 'User register rental' do
     subsidiary = create(:subsidiary)
     user = create(:user, subsidiary: subsidiary)
     client = create(:client)
-    manufacturer = build(:manufacturer)
-    car_category = create(:car_category, name: 'A')
+    create(:car_category, name: 'A')
 
     login_as user, scope: :user
     visit root_path
@@ -70,16 +69,17 @@ feature 'User register rental' do
     select 'A', from: 'Categoria de Carro'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
-    expect(page).to have_content('Data de término deve ser após data de início')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
+    expect(page).to have_content('Data de término deve ser após data de' \
+                                 ' início')
   end
 
   scenario 'and must have available cars in the period' do
     subsidiary = create(:subsidiary)
     user = create(:user, subsidiary: subsidiary)
     client = create(:client)
-    manufacturer = build(:manufacturer)
-    car_category = create(:car_category, name: 'A')
+    create(:car_category, name: 'A')
 
     login_as user, scope: :user
     visit root_path
@@ -91,8 +91,10 @@ feature 'User register rental' do
     select 'A', from: 'Categoria de Carro'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
-    expect(page).to have_content('Não há carros disponíveis dessa categoria nesse período')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
+    expect(page).to have_content('Não há carros disponíveis dessa categoria' \
+                                 ' nesse período')
   end
 
   scenario 'and must be authenticated via routes' do

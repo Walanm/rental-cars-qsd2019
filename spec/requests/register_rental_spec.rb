@@ -8,14 +8,15 @@ describe 'Register Rental API' do
       client = create(:client)
       car_category = create(:car_category)
       manufacturer = Manufacturer.new(name: 'Fiat')
-      car_model = create(:car_model, manufacturer: manufacturer, 
+      car_model = create(:car_model, manufacturer: manufacturer,
                                      car_category: car_category)
-      car = create(:car, car_model: car_model, subsidiary: subsidiary)
-      
-      post api_v1_rentals_url, params: { code: 'XFB000', start_date: Date.current,
-                                         end_date: 1.day.from_now, 
-                                         client_id: client.id, 
-                                         car_category_id: car_category.id, 
+      create(:car, car_model: car_model, subsidiary: subsidiary)
+
+      post api_v1_rentals_url, params: { code: 'XFB000',
+                                         start_date: Date.current,
+                                         end_date: 1.day.from_now,
+                                         client_id: client.id,
+                                         car_category_id: car_category.id,
                                          user_id: user.id }
       json = JSON.parse(response.body, symbolize_names: true)
 
@@ -33,8 +34,10 @@ describe 'Register Rental API' do
       json = JSON.parse(response.body, symbolize_names: true)
 
       expect(response).to have_http_status(:unprocessable_entity)
-      expect(json[:start_date]).to include('Data de Início não pode ficar em branco')
-      expect(json[:end_date]).to include('Data de Término não pode ficar em branco')
+      expect(json[:start_date]).to include('Data de Início não pode ficar em' \
+                                           ' branco')
+      expect(json[:end_date]).to include('Data de Término não pode ficar em' \
+                                         ' branco')
       expect(json[:client]).to include('é obrigatório(a)')
       expect(json[:car_category]).to include('é obrigatório(a)')
       expect(json[:user]).to include('é obrigatório(a)')

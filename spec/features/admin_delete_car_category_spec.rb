@@ -22,7 +22,7 @@ feature 'Admin deletes car category' do
 
   scenario 'and must be authenticated via routes' do
     car_category = create(:car_category)
-    
+
     visit car_category_path(car_category.name)
 
     expect(current_path).to eq(new_user_session_path)

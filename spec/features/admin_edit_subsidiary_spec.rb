@@ -24,7 +24,7 @@ feature 'Admin edits subsidiary' do
   scenario 'name must be unique' do
     subsidiary = create(:subsidiary, name: 'Alamo')
     user = create(:user, subsidiary: subsidiary)
-    subsidiary = create(:subsidiary, name: 'Hertz')
+    create(:subsidiary, name: 'Hertz')
 
     login_as(user, scope: :user)
     visit root_path
@@ -37,7 +37,8 @@ feature 'Admin edits subsidiary' do
     fill_in 'Endereço', with: 'Avenida Brasil 67'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('Nome deve ser único')
   end
 
@@ -56,13 +57,14 @@ feature 'Admin edits subsidiary' do
     fill_in 'Endereço', with: 'Rua da Consolação 101'
     click_on 'Enviar'
 
-    expect(page).to have_content('Você deve corrigir os seguintes erros para continuar')
+    expect(page).to have_content('Você deve corrigir os seguintes erros para' \
+                                 ' continuar')
     expect(page).to have_content('CNPJ deve ser válido')
   end
 
   scenario 'and must be authenticated via routes' do
     subsidiary = create(:subsidiary)
-        
+
     visit edit_subsidiary_path(subsidiary.name)
 
     expect(current_path).to eq(new_user_session_path)
