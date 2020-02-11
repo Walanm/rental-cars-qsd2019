@@ -1,3 +1,5 @@
+<h1><%= Client.model_name.human(count: 2) %></h1>
+
 <%= link_to 'Cadastrar novo cliente', new_client_path %>
 
 <% @clients.each do |client| %>

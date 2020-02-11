@@ -3,6 +3,8 @@ pt-BR:
   rentals:
     create:
       success: 'Locação registrada com sucesso'
+    finish_cancel:
+      success: 'Locação cancelada com sucesso'
   activerecord:
     models:
       rental:
@@ -19,5 +21,6 @@ pt-BR:
         car_category_id: 'Categoria'
         user: 'Usuário'
         user_id: 'Usuário'
+        cancellation_reason: 'Motivo de cancelamento'
         scheduled: 'Agendada'
         in_progress: 'Em andamento'

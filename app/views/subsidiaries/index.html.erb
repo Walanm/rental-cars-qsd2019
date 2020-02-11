@@ -1,5 +1,7 @@
-<%= link_to 'Registrar nova filial', new_subsidiary_path %>
+<h1><%= Subsidiary.model_name.human(count: 2) %></h1>
+
+<%= link_to 'Registrar nova filial', new_subsidiary_path %><br />
 
 <% @subsidiaries.each do |subsidiary| %>
-  <%= link_to subsidiary.name, subsidiary %>
+  <%= link_to subsidiary.name, subsidiary %><br />
 <% end %>

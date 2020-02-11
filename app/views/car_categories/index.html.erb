@@ -1,3 +1,5 @@
+<h1><%= CarCategory.model_name.human(count: 2) %></h1>
+
 <%= link_to 'Registrar nova categoria', new_car_category_path %>
 
 <% @car_categories.each do |car_category| %>

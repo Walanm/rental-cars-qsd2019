@@ -1,3 +1,5 @@
+<h1> Detalhes da <%= Rental.model_name.human %> </h1>
+
 <%= @rental.code %>
 <%= @rental.client.name %>
 <%= @rental.client.email %>
@@ -11,9 +13,12 @@
   <p>Status: Em andamento</p>
   <%= "Carro: #{@car_rental.car.full_description}" %>
   <%= "Diária: R$#{format("%.2f", @car_rental.daily_price)}" %>
+<% elsif @rental.cancelled?%>
+  <p>Status: Cancelado</p>
 <% else %>
   <p>Status: Agendado</p>
   <%= link_to 'Efetivar Locação', new_rental_car_rental_path(@rental)  %>
+  <%= link_to 'Cancelar Locação', cancel_rental_path(@rental)  %>
 <% end %>
 
 <%= link_to 'Voltar', rentals_path %>

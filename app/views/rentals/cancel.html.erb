@@ -1,0 +1,27 @@
+<h1> Detalhes da <%= Rental.model_name.human %> </h1>
+
+<% if @rental.errors.any? %>
+  <p>Você deve corrigir os seguintes erros para continuar:</p>
+
+  <% @rental.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+<% end %>
+
+<h3> Código: <%= @rental.code %> <h3>
+<h3> translate_attr('rental.cancellation_reason') </h3>
+
+<%= form_with url: {action: :finish_cancel}, model: @rental, local: true do |f| %>
+  <div class="ls-form ls-form-horizontal row">
+    <div class="ls-label col-md-12 form-row">
+      <%= f.label :cancellation_reason %>
+      <%= f.text_field :cancellation_reason %>
+    </div>
+  </div>
+  <div class="button">
+    <%= f.submit 'Finalizar Cancelamento', class: "ls-btn blue-theme" %>
+  </div>
+<% end %>
+  
+
+<%= link_to 'Voltar', rentals_path %>

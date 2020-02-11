@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :car_models, only: %i[index show new create edit update]
   resources :clients, only: %i[index show new create]
   resources :rentals, only: %i[index show new create] do
+    get 'cancel', on: :member
+    patch 'finish_cancel', on: :member
     get 'search', on: :collection
     resources :car_rentals, only: %i[new create]
   end

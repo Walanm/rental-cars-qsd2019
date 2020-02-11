@@ -17,18 +17,11 @@
 
   <body>
     <%= render partial: 'layouts/topbar' %>
-    <% if user_signed_in? %>
-      <%= render partial: 'layouts/sidebar' %>
-    <% end %>
+    <%= render partial: 'layouts/sidebar' %>
 
     <!-- CONTEUDO -->
     <main class="ls-main ">
       <div class="container-fluid">
-        <nav>
-          <% unless user_signed_in? %>
-            <%= link_to 'Entrar', new_user_session_path %>
-          <% end %>
-        </nav>
         <%= notice %>
         <%= alert %>
         <%= yield %>

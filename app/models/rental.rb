@@ -7,12 +7,14 @@ class Rental < ApplicationRecord
 
   validates :start_date, presence: true
   validates :end_date, presence: true
+  validates :cancellation_reason, presence: true, if: :cancelled?
 
+  validate :one_day_antecipation?, if: :cancelled?
   validate :start_date_cannot_be_in_the_past,
            :end_date_greater_than_start_date,
            :available_cars?
 
-  enum status: { scheduled: 0, in_progress: 4 }
+  enum status: { scheduled: 0, in_progress: 4, cancelled: 8 }
 
   private
 
@@ -44,6 +46,7 @@ class Rental < ApplicationRecord
 
   def same_category_local_rentals
     Rental.where.not(id: id)
+          .where.not(status: :cancelled)
           .where(car_category: car_category,
                  subsidiary: user.subsidiary.id)
           .where('start_date BETWEEN :start AND :end
@@ -54,10 +57,18 @@ class Rental < ApplicationRecord
 
   def same_category_long_period_local_rentals
     Rental.where.not(id: id)
+          .where.not(status: :cancelled)
           .where(car_category: car_category,
                  subsidiary: user.subsidiary.id)
           .where('start_date < ? AND end_date > ?',
                  start_date, end_date)
           .count
+  end
+
+  def one_day_antecipation?
+    return unless start_date.present? && start_date <= Date.current
+
+    errors[:base] << 'Você só pode cancelar uma locação' \
+                     ' com no mínimo um dia de antecedência'
   end
 end
